@@ -1,8 +1,11 @@
 import React from "react";
 
-const Container = ({ className, children }) => {
+const Container = ({ className = "", children }) => {
+  const include_px = /px-\d+/.test(className);
+  const updatedClassName = include_px ? className : `px-12 ${className}`;
+
   return (
-    <div className={`${className || ""} max-w-[1440px] px-12 mx-auto`}>
+    <div className={`${updatedClassName} max-w-[1440px] mx-auto`}>
       {children}
     </div>
   );

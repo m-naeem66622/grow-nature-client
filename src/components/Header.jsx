@@ -5,9 +5,7 @@ import Container from "./Container";
 
 const Header = ({ inside = false }) => {
   return (
-    <Container
-      className={`navbar backdrop-blur py-6 max-w-full${inside ? " px-0" : ""}`}
-    >
+    <Container className={`navbar backdrop-blur py-6 ${inside ? "px-0" : ""}`}>
       <div className="flex-1">
         <Logo className="w-32 text-white rounded-full shadow-md" />
         <div className="flex flex-col pl-6">

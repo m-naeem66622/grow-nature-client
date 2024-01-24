@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import { themeChange } from "theme-change";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
+import Footer from "./components/Footer";
 
 function App() {
+  const location = useLocation();
   const [theme, setTheme] = useState("garden");
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -18,11 +20,12 @@ function App() {
   return (
     <>
       <main>
-        {!(window.location.pathname === "/") && <Header />}
+        {!(location.pathname === "/") && <Header />}
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
+        <Footer />
       </main>
     </>
   );

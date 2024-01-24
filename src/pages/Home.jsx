@@ -2,6 +2,9 @@ import React from "react";
 import Heading from "../components/Heading";
 import Container from "../components/Container";
 import Header from "../components/Header";
+import ProductCard from "../components/ProductCard";
+import dummyData from "../dummyData";
+import CollectionCard from "../components/CollectionCard";
 
 const Home = () => {
   return (
@@ -22,34 +25,44 @@ const Home = () => {
           </button>
         </div>
       </Container>
+      {/* Services Section */}
       <Container>
         <div className="flex flex-wrap justify-between px-10 py-6">
-          {[
-            {
-              icon: "fa-rotate",
-              first: "100% Satisfaction",
-              second: "Friendly & Reliable Service",
-            },
-            {
-              icon: "fa-box",
-              first: "Fast Shipping",
-              second: "Only takes 3 working days",
-            },
-            {
-              icon: "fa-spa",
-              first: "Vast Collection of Plants",
-              second: "Any plants for your space",
-            },
-          ].map((elem, index) => (
-            <div className="flex items-center gap-x-4">
+          {dummyData.services.map((elem, index) => (
+            <div key={index} className="flex items-center gap-x-4">
               <div className="text-[#75C32C] text-2xl bg-[#d0d8d8] rounded-full p-2 flex justify-center items-center">
-                <i class={`fa-solid ${elem.icon}`}></i>
+                <i className={`fa-solid ${elem.icon}`}></i>
               </div>
               <div className="flex flex-col">
                 <p className="text-lg mb-2">{elem.first}</p>
                 <p className="text-sm text-neutral-500">{elem.second}</p>
               </div>
             </div>
+          ))}
+        </div>
+      </Container>
+      {/* Collection Section */}
+      <Container className="flex flex-col items-center">
+        <Heading level={1} className="mb-8 text-4xl">
+          Our Collection
+        </Heading>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dummyData.collections.map((elem, index) => (
+            <CollectionCard key={index} data={elem} />
+          ))}
+        </div>
+      </Container>
+      {/* Featured Section */}
+      <Container className="flex flex-col items-center">
+        <div className="mb-8 mt-12 text-center">
+          <Heading level={1} className="text-4xl">
+            Featured Plants
+          </Heading>
+          <p>Some of our most liked plants are listed Here 🙂</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {dummyData.plants.map((elem, index) => (
+            <ProductCard key={index} data={elem} />
           ))}
         </div>
       </Container>
