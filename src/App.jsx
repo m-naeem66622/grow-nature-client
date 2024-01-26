@@ -6,10 +6,40 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Page404 from "./pages/Page404";
 import Footer from "./components/Footer";
+import ProductList from "./pages/ProductList";
+import ProductDetail from "./pages/ProductDetail";
 
 function App() {
   const location = useLocation();
   const [theme, setTheme] = useState("garden");
+
+  const routes = [
+    {
+      path: "/",
+      element: <Home />,
+    },
+    {
+      path: "/products",
+      element: <ProductList />,
+    },
+    {
+      path: "/product/:_id",
+      element: <ProductDetail />,
+    },
+    {
+      path: "/collection/:collectionName",
+      element: <ProductList />,
+    },
+    {
+      path: "/category/:categoryName",
+      element: <ProductList />,
+    },
+    {
+      path: "*",
+      element: <Page404 />,
+    },
+  ];
+
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     themeChange(false);
@@ -22,8 +52,9 @@ function App() {
       <main>
         {!(location.pathname === "/") && <Header />}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="*" element={<Page404 />} />
+          {routes.map((route, index) => (
+            <Route key={index} path={route.path} element={route.element} />
+          ))}
         </Routes>
         <Footer />
       </main>

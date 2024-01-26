@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useRef } from "react";
 import Logo from "../assets/Logo";
 import { Link } from "react-router-dom";
 import Container from "./Container";
+import { toKebabCase } from "../utils/strings";
 
 const Header = ({ inside = false }) => {
+  const ref = useRef(null);
+
+  const storeItems = [
+    "Cactus Plants",
+    "Succulent Plants",
+    "Exotic Plants",
+    "Best Low Light Indoor Plants",
+    "Bails and Climbers",
+    "Trees",
+    "Seeds",
+    "Pots and Containers for plants",
+    "Gardening Accessories",
+  ];
+
+  // To close the dropdown menu when clicked outside or on the link
+  const handleClick = () => {
+    ref.current.removeAttribute("open");
+  };
+
   return (
-    <Container className={`navbar backdrop-blur py-6 ${inside ? "px-0" : ""}`}>
+    <Container
+      className={`navbar backdrop-blur py-6 relative z-10 mb-8 ${
+        inside ? "px-0" : ""
+      }`}
+    >
       <div className="flex-1">
         <Logo className="w-32 text-white rounded-full shadow-md" />
         <div className="flex flex-col pl-6">
@@ -19,21 +43,19 @@ const Header = ({ inside = false }) => {
             <Link to="/">Buy Plants Online</Link>
           </li>
           <li>
-            <details>
+            <details ref={ref}>
               <summary>Store</summary>
-              <ul className="p-2 bg-base-100 rounded-t-none">
-                <li>
-                  <Link to="/">Buy Plants</Link>
-                </li>
-                <li>
-                  <Link to="/">Buy Trees</Link>
-                </li>
-                <li>
-                  <Link to="/">Buy Seeds</Link>
-                </li>
-                <li>
-                  <Link to="/">Buy Accessories</Link>
-                </li>
+              <ul className="p-2 bg-base-100 rounded-t-none w-max">
+                {storeItems.map((item) => (
+                  <li onClick={handleClick} key={item}>
+                    <Link
+                      onClick={handleClick}
+                      to={`/collection/${toKebabCase(item)}`}
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </details>
           </li>
