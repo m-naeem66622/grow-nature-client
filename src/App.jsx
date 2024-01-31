@@ -8,6 +8,7 @@ import Page404 from "./pages/Page404";
 import Footer from "./components/Footer";
 import ProductList from "./pages/ProductList";
 import ProductDetail from "./pages/ProductDetail";
+import Login from "./pages/Login";
 
 function App() {
   const location = useLocation();
@@ -17,6 +18,14 @@ function App() {
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/login",
+      element: <Login />,
+    },
+    {
+      path: "/register",
+      element: <Login />,
     },
     {
       path: "/products",
