@@ -1,14 +1,24 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import dummyData from "../dummyData";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import Container from "../components/Container";
+import Heading from "../components/Heading";
+import { addToCart, removeFromCart } from "../slices/cartSlice";
+import { notify } from "../utils/notify";
+import { PRODUCTS_URL } from "../constans";
 
 const ProductDetail = () => {
+  const dispatch = useDispatch();
   const { _id } = useParams();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState(0);
   const [activeTab, setActiveTab] = useState("description");
+  const [quantity, setQuantity] = useState(1);
+
+  const cartItems = useSelector((state) => state.cart.cartItems);
 
   const handleImageSelect = (index) => {
     setSelectedImage(index);
@@ -35,18 +45,38 @@ const ProductDetail = () => {
     },
   ];
 
-  useEffect(() => {
-    const found = dummyData.plants.find((item) => item._id === _id);
-    if (found) {
-      setData(found);
+  const fetchProduct = async () => {
+    try {
+      const response = await axios.get(`${PRODUCTS_URL}/${_id}`);
+      setData(response.data);
       setLoading(false);
+    } catch (error) {
+      console.error("Error while fetching product:", error);
+      setError({ ...error.response.data, code: error.response.status });
+      setLoading(false);
+      notify("error", "Error while fetching product");
     }
+  };
+
+  useEffect(() => {
+    fetchProduct();
   }, [_id]);
 
   if (loading) {
     return (
       <div className="text-center">
         <span className="loading loading-dots loading-lg text-primary"></span>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center">
+        <h2 className="text-2xl font-semibold text-red-500 mb-4">
+          {error.code} Error
+        </h2>
+        <p className="text-gray-600">{error.message}</p>
       </div>
     );
   }
@@ -58,14 +88,14 @@ const ProductDetail = () => {
         <div className="md:col-span-2 lg:col-span-1">
           <div className="w-full rounded-lg aspect-[4/3]">
             <img
-              src={data.src[selectedImage]}
+              src={data.src && data.src[selectedImage]}
               alt={data.name}
               className="w-full h-full object-cover rounded-lg"
             />
           </div>
           {/* Additional Images Carousel or Thumbnails */}
           <div className="flex mt-2 gap-x-3">
-            {data.src.map((image, index) => (
+            {data.src?.map((image, index) => (
               <div
                 key={index}
                 className={`w-1/6 cursor-pointer relative aspect-square ${
@@ -86,24 +116,81 @@ const ProductDetail = () => {
         </div>
         {/* Product Details */}
         <div className="md:col-span-1 lg:col-span-1">
-          <h2 className="text-2xl lg:text-3xl font-bold mb-2">{data.name}</h2>
-          <p className="text-gray-600 mb-2 lg:text-lg">${data.price}</p>
+          <Heading level={1}>{data.name}</Heading>
+          <p className="text-gray-600 mb-2 lg:text-lg">
+            {data.price.currency} {data.price.amount}
+          </p>
           <p className="text-gray-800 mb-4">{data.description}</p>
 
           {/* Categories */}
           <div className="mb-4">
             <span className="font-semibold mr-2">Categories:</span>
-            {data.categories.join(", ")}
+            {data.categories?.join(", ")}
           </div>
 
           {/* Pot Size */}
           <div className="mb-4">
-            <span className="font-semibold">Pot Size:</span> {data.potSize}
+            <span className="font-semibold">Pot Size:</span> {data.potSize.size}{" "}
+            {data.potSize.unit}
           </div>
 
           {/* Pot Type */}
           <div className="mb-4">
             <span className="font-semibold">Pot Type:</span> {data.potType}
+          </div>
+
+          <div className="mb-4">
+            <div className="join join-vertical lg:join-horizontal">
+              <button
+                className="btn join-item"
+                onClick={() => setQuantity(quantity - 1 > 1 ? quantity - 1 : 1)}
+              >
+                <i className="fa-solid fa-minus"></i>
+              </button>
+              <input
+                type="number"
+                value={quantity}
+                className="input input-bordered rounded-none !outline-transparent ms-0 w-28"
+                onChange={(e) => setQuantity(parseInt(e.target.value))}
+                onBlur={(e) =>
+                  e.target.value && e.target.value > 1
+                    ? setQuantity(parseInt(e.target.value))
+                    : setQuantity(1)
+                }
+              />
+              <button
+                className="btn join-item"
+                onClick={() => setQuantity(quantity + 1)}
+              >
+                <i className="fa-solid fa-plus"></i>
+              </button>
+            </div>
+            {quantity > 1 ? (
+              <div className="font-semibold mt-2">
+                Total Price: {parseFloat(data.price.amount) * quantity}
+              </div>
+            ) : null}
+          </div>
+
+          <div className="mb-4">
+            <div className="join">
+              <button
+                onClick={() => dispatch(addToCart({ ...data, quantity }))} // Dispatch the action
+                className="btn btn-primary join-item"
+              >
+                {cartItems.some((item) => item._id === data._id)
+                  ? "Update Cart"
+                  : "Add to Cart"}
+              </button>
+              {cartItems.some((item) => item._id === data._id) && (
+                <button
+                  onClick={() => dispatch(removeFromCart(data._id))} // Dispatch the action
+                  className="btn btn-danger join-item"
+                >
+                  Remove from Cart
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>

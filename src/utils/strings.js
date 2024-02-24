@@ -1,10 +1,10 @@
-export function toKebabCase(str) {
+export function toKebabCase(str = "") {
   return str.toLowerCase().replace(/\s+/g, "-");
 }
 
-export function toTitleCase(str) {
+export function toTitleCase(str = "") {
   return str
-    .split("-")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .split(str.includes("-") ? "-" : " ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }

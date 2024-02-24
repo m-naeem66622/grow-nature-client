@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { toKebabCase } from "../utils/strings";
 
 const CollectionCard = ({ data }) => {
@@ -13,8 +13,8 @@ const CollectionCard = ({ data }) => {
         />
       </div>
       <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300 text-center px-3">
-        <h3 className="text-base-100 text-2xl font-bold mb-2">{data.name}</h3>
-        <p className="text-base-100 text-lg mb-4">{data.desc}</p>
+        <h3 className="text-white text-2xl font-bold mb-2">{data.name}</h3>
+        <p className="text-gray-400 text-lg mb-4">{data.desc}</p>
         <Link
           to={"/collection/" + toKebabCase(data.name)}
           className="btn btn-primary"
@@ -24,6 +24,10 @@ const CollectionCard = ({ data }) => {
       </div>
     </div>
   );
+};
+
+CollectionCard.propTypes = {
+  data: PropTypes.object.isRequired,
 };
 
 export default CollectionCard;

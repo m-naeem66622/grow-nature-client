@@ -1,4 +1,4 @@
-const dummyData = {
+const staticData = {
   services: [
     {
       icon: "fa-rotate",
@@ -18,40 +18,39 @@ const dummyData = {
   ],
   collections: [
     {
-      src: "https://images.unsplash.com/photo-1531875456634-3f5418280d20",
+      src: "https://images.unsplash.com/photo-1531875456634-3f5418280d20?w=450",
       name: "Trendy Cactus Varieties",
       desc: "Buy Beautiful and glamorous Cactus Plant",
     },
     {
-      src: "https://images.unsplash.com/photo-1506634064465-7dab4de896ed",
+      src: "https://images.unsplash.com/photo-1506634064465-7dab4de896ed?w=450",
       name: "Beautiful Succulents",
       desc: "Select from a vast variety of  succulents",
     },
     {
-      src: "https://images.unsplash.com/photo-1533038590840-1cde6e668a91",
+      src: "https://images.unsplash.com/photo-1533038590840-1cde6e668a91?w=450",
       name: "Exotic Plants",
       desc: "Buy Quality Indoor & Outdoor Plants",
     },
     {
-      // src: "https://plus.unsplash.com/premium_photo-1664015821166-d88627c6bb26",
-      src: "https://images.unsplash.com/photo-1474444417714-f5d07c4d6a38",
+      src: "https://images.unsplash.com/photo-1474444417714-f5d07c4d6a38?w=450",
       name: "Pots & Containers",
       desc: "Ceramic, clay, plastic we got all of them",
     },
     {
-      src: "https://images.unsplash.com/photo-1624196364996-a16fd5d546b9",
+      src: "https://images.unsplash.com/photo-1624196364996-a16fd5d546b9?w=450",
       name: "Seeds",
       desc: "Quality seeds from all over the world",
     },
     {
-      src: "https://images.unsplash.com/photo-1526381805515-3fec2d69e7cc",
+      src: "https://images.unsplash.com/photo-1526381805515-3fec2d69e7cc?w=450",
       name: "Gardening Accessories",
       desc: "Best quality gardening accessories",
     },
   ],
   plants: [
     {
-      _id: "1",
+      _id: "65ca7993cfa2493cf00b0a4c",
       src: [
         "https://boota.pk/wp-content/uploads/2021/03/Agave-Victoria-Plant-scaled.jpg",
         "https://boota.pk/wp-content/uploads/2021/03/Agave-Victoria-Plant-2-1.jpg",
@@ -59,14 +58,14 @@ const dummyData = {
       name: "Agave Victoria",
       categories: ["Cactus"],
       shortDesc: "The Noble Agave Victoria Plant",
-      price: "₨ 1,800.00",
+      price: 1800.0,
       potType: "Plastic",
       potSize: "4 Inches",
       longDesc:
         "Agave Victoria, also known as the “queen Victoria agave,” is a striking, large-sized agave native to the highlands of central Mexico. It is a popular plant for cultivation, particularly in desert-like climates, due to its unique appearance and low maintenance requirements.\nThe Queen Victoria agave is characterized by its symmetrical, rosette-shaped leaves, which can grow up to 3-4 feet in length and 1-2 feet in width. These leaves are typically a deep green color, with a glossy sheen, and have a sharp, pointed tip. The plant's leaves are arranged in a spiral pattern around a central stem and have small, spiky teeth along their edges. In the summer months, the queen Victoria agave produces a tall, slender flower stalk, which can grow up to 10-15 feet in height. The plant’s flowers are small and yellow and are typically pollinated by hummingbirds.\nOne of the most appealing aspects of the queen Victoria agave is its low maintenance requirements. It is well-suited to life in a pot and can be grown indoors or outdoors in a sunny location. The plant is drought-tolerant and does not require frequent watering. When watering, it is important to allow the soil to dry out completely before watering again, as the queen Victoria agave is susceptible to root rot. The plant also benefits from being fertilized once a month during the growing season, using a general-purpose fertilizer.\nIn terms of care, the queen Victoria agave is a relatively low-maintenance plant. It is resistant to pests and diseases and does not require pruning. The plant's spines can be trimmed if desired, using a pair of sharp scissors or pruning shears. The plant can be repotted as needed, typically every 2-3 years, using a well-draining cactus potting soil.\nIn conclusion, the Agave Victoria, or queen Victoria agave, is a striking and easy-to-care-for plant that is well-suited to life in a pot. Its large, glossy leaves and tall flower stalk make it a distinctive addition to any desert-like landscape. With proper care, including proper watering, fertilization, and occasional repotting, the queen Victoria agave can thrive and bring beauty to any space.",
     },
     {
-      _id: "2",
+      _id: "65ca791ecfa2493cf00b0a4b",
       src: [
         "https://boota.pk/wp-content/uploads/2021/01/Astrophytum-myriostigma-white-2.jpg",
         "https://boota.pk/wp-content/uploads/2021/01/Astrophytum-myriostigma-white.jpg",
@@ -76,7 +75,7 @@ const dummyData = {
       categories: ["Cactus", "Luxury Plants"],
       shortDesc:
         "Astrophytum is a hard cactus plant with no spines. It blooms in summer and if perfect for your table decoration need",
-      price: "₨ 799.00",
+      price: 799.0,
       potType: "Plastic",
       potSize: "4 Inches",
       longDesc: `Astrophytum is on of the very few varieties in cacti which does not has spines. Astrophytum is famous for its sturdiness and starts to round up with growth. The most common varieties include the white and the green ones with three, four and five sides. You can always message us to ask for your prefered one.
@@ -89,7 +88,7 @@ const dummyData = {
           Astrophytum is a genus of cactus native to Mexico.
           It includes several species known for their unique shapes and easy care requirements.
           Common species:
-          Some common species of Astrophytum include A. asterias (sand dollar cactus), A. myriostigma (bishop’s cap cactus), and A. ornatum (peanut cactus).
+          Some common species of Astrophytum include A. asterias (sand dollar cactus), A. myriostigma (bishop's cap cactus), and A. ornatum (peanut cactus).
           Appearance:
           Astrophytum cacti have a variety of shapes, including spherical, cylindrical, and flattened.
           They have raised ribs and tubercles, and may have spiny protuberances.
@@ -163,7 +162,7 @@ const dummyData = {
           Perfect for your table decor. Care needed for the provision of water and light. Growth depends on the atmosphere, nature and weather.`,
     },
     {
-      _id: "3",
+      _id: "65ca788fcfa2493cf00b0a4a",
       src: [
         "https://boota.pk/wp-content/uploads/2021/03/Brain-Cactus-Mammillaria-Pilcayensis-Cristata-7-100x100.jpg",
         "https://boota.pk/wp-content/uploads/2021/03/Brain-Cactus-Mammillaria-Pilcayensis-Cristata-4.jpg",
@@ -172,12 +171,12 @@ const dummyData = {
       categories: ["Cactus", "Luxury Plants"],
       shortDesc:
         "Brain cactus is a grafted mammalliria with the shape of a brain.",
-      price: "₨ 3,000.00",
+      price: 3000.0,
       potType: "Plastic",
       potSize: "4 Inches",
-      longDesc: `Brain cactus is a grafted mammillaria pilcayencis cristata on the rooting stock of mostly a dragon fruit cactus. It forms curves with age which looks like a brain after a few years of age. The graft is available in white and yellow color but the white one is most wanted.\nBrain cactus, also known as Mammillaria elongata, is a small, slow-growing cactus native to the arid regions of Mexico. It is a popular plant for cultivation, particularly among cactus enthusiasts, due to its unique appearance and easy care requirements.\nThe brain cactus is characterized by its spherical, brain-like stems, which can grow up to 3 inches in diameter. These stems are typically a pale green or blue-green color, with a smooth, waxy surface, and have small, white spines arranged in a spiral pattern. The plant has a short, central taproot, and does not have any visible ribs or tubercles. In the spring and summer months, the brain cactus produces small, pink or purple flowers that bloom from the plant’s apex, or top.\nOne of the most appealing aspects of the brain cactus is its low maintenance requirements. It is well-suited to life in a pot, and can be grown indoors or outdoors in a sunny location. The plant is drought-tolerant, and does not require frequent watering. When watering, it is important to allow the soil to dry out completely before watering again, as the brain cactus is susceptible to root rot. The plant also benefits from being fertilized once a month during the growing season, using a cactus-specific fertilizer.\nIn terms of care, the brain cactus is a relatively low-maintenance plant. It is resistant to pests and diseases, and does not require pruning. The plant’s spines can be trimmed if desired, using a pair of sharp scissors or pruning shears. The plant can be repotted as needed, typically every 2-3 years, using a well-draining cactus potting soil.\nIn conclusion, the Mammillaria elongata, or brain cactus, is a unique and easy-to-care-for plant that is well-suited to life in a pot. Its spherical stems and small, spiky spines give it a distinctive appearance that is sure to stand out in any cactus collection. With proper care, including proper watering, fertilization, and occasional repotting, the brain cactus can thrive and bring beauty to any space. It is a slow-growing plant, and can take several years to reach its full size.\nPerfect for your table decor. Care needed for the provision of water and light. Growth depends on the atmosphere, nature and weather.`,
+      longDesc: `Brain cactus is a grafted mammillaria pilcayencis cristata on the rooting stock of mostly a dragon fruit cactus. It forms curves with age which looks like a brain after a few years of age. The graft is available in white and yellow color but the white one is most wanted.\nBrain cactus, also known as Mammillaria elongata, is a small, slow-growing cactus native to the arid regions of Mexico. It is a popular plant for cultivation, particularly among cactus enthusiasts, due to its unique appearance and easy care requirements.\nThe brain cactus is characterized by its spherical, brain-like stems, which can grow up to 3 inches in diameter. These stems are typically a pale green or blue-green color, with a smooth, waxy surface, and have small, white spines arranged in a spiral pattern. The plant has a short, central taproot, and does not have any visible ribs or tubercles. In the spring and summer months, the brain cactus produces small, pink or purple flowers that bloom from the plant's apex, or top.\nOne of the most appealing aspects of the brain cactus is its low maintenance requirements. It is well-suited to life in a pot, and can be grown indoors or outdoors in a sunny location. The plant is drought-tolerant, and does not require frequent watering. When watering, it is important to allow the soil to dry out completely before watering again, as the brain cactus is susceptible to root rot. The plant also benefits from being fertilized once a month during the growing season, using a cactus-specific fertilizer.\nIn terms of care, the brain cactus is a relatively low-maintenance plant. It is resistant to pests and diseases, and does not require pruning. The plant's spines can be trimmed if desired, using a pair of sharp scissors or pruning shears. The plant can be repotted as needed, typically every 2-3 years, using a well-draining cactus potting soil.\nIn conclusion, the Mammillaria elongata, or brain cactus, is a unique and easy-to-care-for plant that is well-suited to life in a pot. Its spherical stems and small, spiky spines give it a distinctive appearance that is sure to stand out in any cactus collection. With proper care, including proper watering, fertilization, and occasional repotting, the brain cactus can thrive and bring beauty to any space. It is a slow-growing plant, and can take several years to reach its full size.\nPerfect for your table decor. Care needed for the provision of water and light. Growth depends on the atmosphere, nature and weather.`,
     },
   ],
 };
 
-export default dummyData;
+export default staticData;

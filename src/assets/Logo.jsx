@@ -1,6 +1,6 @@
-import React from "react";
+import PropTypes from "prop-types";
 
-function Logo({ className, ...rest }) {
+function Logo({ className }) {
   return (
     <svg
       version="1.1"
@@ -1523,5 +1523,9 @@ z"
     </svg>
   );
 }
+
+Logo.propTypes = {
+  className: PropTypes.string,
+};
 
 export default Logo;

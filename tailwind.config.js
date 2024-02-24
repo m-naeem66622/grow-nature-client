@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -19,6 +20,7 @@ export default {
         garden: {
           ...require("daisyui/src/theming/themes")["garden"],
           primary: "#81C02F",
+          error: "#EF4444",
         },
       },
       "dark",

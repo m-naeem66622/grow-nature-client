@@ -63,6 +63,16 @@ const Validate = {
       return true;
     },
   },
+  email: {
+    validFormat: (value) => {
+      const regex =
+        /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g;
+      if (!regex.test(value)) {
+        return "Invalid email format";
+      }
+      return true;
+    },
+  },
 };
 
 export default Validate;

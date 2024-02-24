@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const ProductCard = ({ data, className = "" }) => {
   return (
@@ -36,6 +36,11 @@ const ProductCard = ({ data, className = "" }) => {
       </div>
     </div>
   );
+};
+
+ProductCard.propTypes = {
+  data: PropTypes.object.isRequired,
+  className: PropTypes.string,
 };
 
 export default ProductCard;

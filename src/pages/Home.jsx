@@ -1,9 +1,8 @@
-import React from "react";
 import Heading from "../components/Heading";
 import Container from "../components/Container";
 import Header from "../components/Header";
 import ProductCard from "../components/ProductCard";
-import dummyData from "../dummyData";
+import staticData from "../staticData";
 import CollectionCard from "../components/CollectionCard";
 
 const Home = () => {
@@ -28,7 +27,7 @@ const Home = () => {
       {/* Services Section */}
       <Container>
         <div className="flex flex-wrap justify-between px-10 py-6">
-          {dummyData.services.map((elem, index) => (
+          {staticData.services.map((elem, index) => (
             <div key={index} className="flex items-center gap-x-4">
               <div className="text-[#75C32C] text-2xl bg-[#d0d8d8] rounded-full p-2 flex justify-center items-center">
                 <i className={`fa-solid ${elem.icon}`}></i>
@@ -47,7 +46,7 @@ const Home = () => {
           Our Collection
         </Heading>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {dummyData.collections.map((elem, index) => (
+          {staticData.collections.map((elem, index) => (
             <CollectionCard key={index} data={elem} />
           ))}
         </div>
@@ -61,7 +60,7 @@ const Home = () => {
           <p>Some of our most liked plants are listed Here 🙂</p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {dummyData.plants.map((elem, index) => (
+          {staticData.plants.map((elem, index) => (
             <ProductCard key={index} data={elem} />
           ))}
         </div>

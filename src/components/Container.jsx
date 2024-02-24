@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 const Container = ({ className = "", children }) => {
   const include_px = /px-\d+/.test(className);
@@ -9,6 +9,11 @@ const Container = ({ className = "", children }) => {
       {children}
     </div>
   );
+};
+
+Container.propTypes = {
+  className: PropTypes.string,
+  children: PropTypes.node.isRequired,
 };
 
 export default Container;

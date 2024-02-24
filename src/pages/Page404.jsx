@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 
 const Page404 = () => {
@@ -9,7 +8,7 @@ const Page404 = () => {
     <div className="flex items-center justify-center">
       <div className="p-8 w-full text-center">
         <div className="text-6xl mb-4">🌱</div>
-        <h1 className="text-2xl font-semibold mb-2">Oops! Product Not Found</h1>
+        <h1 className="text-2xl font-semibold mb-2">Oops! Page Not Found</h1>
         <p className="text-gray-600 mb-4">
           It appears the item you were looking for is taking a moment to blossom
           in our vast garden.
@@ -17,10 +16,7 @@ const Page404 = () => {
           Why not explore our diverse collection of seeds, trees, and
           accessories while you wait?
         </p>
-        <Link
-          to="/"
-          className="font-bold hover:underline"
-        >
+        <Link to="/products" className="font-bold hover:underline">
           Return to Green Haven
         </Link>
       </div>

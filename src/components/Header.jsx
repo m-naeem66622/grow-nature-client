@@ -1,11 +1,14 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
 import Logo from "../assets/Logo";
 import { Link } from "react-router-dom";
 import Container from "./Container";
 import { toKebabCase } from "../utils/strings";
+import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 const Header = ({ inside = false }) => {
   const ref = useRef(null);
+  const cart = useSelector((state) => state.cart);
 
   const storeItems = [
     "Cactus Plants",
@@ -30,17 +33,17 @@ const Header = ({ inside = false }) => {
         inside ? "px-0" : ""
       }`}
     >
-      <div className="flex-1">
+      <Link to="/" className="flex-1">
         <Logo className="w-32 text-white rounded-full shadow-md" />
         <div className="flex flex-col pl-6">
           <span className="text-xl font-bold">Grow Nature</span>
-          <span className="text-sm">Gujrat's No.1 Online Plant Store</span>
+          <span className="text-sm">No.1 Online Plant Store</span>
         </div>
-      </div>
+      </Link>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <Link to="/">Buy Plants Online</Link>
+            <Link to="/products">Buy Plants Online</Link>
           </li>
           <li>
             <details ref={ref}>
@@ -83,7 +86,9 @@ const Header = ({ inside = false }) => {
                   d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
                 />
               </svg>
-              <span className="badge badge-sm indicator-item">8</span>
+              <span className="badge badge-sm indicator-item">
+                {cart.cartItems.length}
+              </span>
             </div>
           </div>
           <div
@@ -91,10 +96,16 @@ const Header = ({ inside = false }) => {
             className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
           >
             <div className="card-body">
-              <span className="font-bold text-lg">8 Items</span>
-              <span className="text-info">Subtotal: $999</span>
+              <span className="font-bold text-lg">
+                {cart.cartItems.length} Item(s)
+              </span>
+              <span className=" text-primary font-bold">
+                Subtotal: ₨. {cart.itemsPrice}
+              </span>
               <div className="card-actions">
-                <button className="btn btn-ghost btn-block">View cart</button>
+                <Link to="/cart" className="btn btn-ghost btn-block">
+                  View cart
+                </Link>
               </div>
             </div>
           </div>
@@ -102,6 +113,10 @@ const Header = ({ inside = false }) => {
       </div>
     </Container>
   );
+};
+
+Header.propTypes = {
+  inside: PropTypes.bool,
 };
 
 export default Header;
