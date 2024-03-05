@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useLocation, useParams, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import ProductCard from "../components/ProductCard";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
 import { toTitleCase } from "../utils/strings";
 import { notify } from "../utils/notify";
+import { queryParser } from "../utils/queryParser";
 import { PRODUCTS_URL } from "../constans";
+import staticData from "../staticData";
 
 const ProductList = () => {
   const location = useLocation();
+  const params = useParams();
   const { pathname } = location;
   const [searchParams, setSearchParams] = useSearchParams();
   const [data, setData] = useState([]);
@@ -21,13 +24,35 @@ const ProductList = () => {
 
   const title = pathname.startsWith("/products")
     ? "All Products"
-    : pathname.split("/").filter(Boolean).map(toTitleCase).join(" - ");
+    : pathname.startsWith("/collection")
+    ? staticData.collections.find(
+        (elem) => elem.value.join(",") === params.collectionName
+      )
+      ? staticData.collections.find(
+          (elem) => elem.value.join(",") === params.collectionName
+        ).name
+      : staticData.storeItems.find(
+          (elem) => elem.value === params.collectionName
+        ).name
+    : params.categoryName
+        ?.split(",")
+        .filter(Boolean)
+        .map((elem) => toTitleCase(elem))
+        .join(", ");
 
   const fetchProducts = async () => {
+    const categories = pathname.startsWith("/collection")
+      ? params.collectionName?.split(",").map((elem) => toTitleCase(elem))
+      : params.categoryName?.split(",").map((elem) => toTitleCase(elem));
+
+    const query = queryParser({
+      page,
+      limit,
+      categories,
+    });
+
     try {
-      const response = await axios.get(
-        `${PRODUCTS_URL}?page=${page}&limit=${limit}`
-      );
+      const response = await axios.get(`${PRODUCTS_URL}?${query}`);
       setPagination(response.data.pagination);
       if (response.data.data.length === 0) {
         setError({ code: 404, message: "No products found." });
@@ -46,7 +71,7 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchProducts();
-  }, [page, limit]);
+  }, [page, limit, params.collectionName, params.categoryName]);
 
   const paginationHeader = (
     <div className="flex justify-center items-center mb-4">
@@ -105,16 +130,17 @@ const ProductList = () => {
 
   if (error) {
     return (
-      <>
-        {error.code === 404 && paginationHeader}
+      <Container>
+        <Heading className="text-4xl font-bold mb-8 mt-4">{title}</Heading>
+        {error.code === 404 && pagination.totalProducts > 0 && paginationHeader}
         <div className="text-center">
           <h2 className="text-2xl font-semibold text-red-500 mb-4">
             {error.code} Error
           </h2>
           <p className="text-gray-600">{error.message}</p>
         </div>
-        {error.code === 404 && paginationFooter}
-      </>
+        {error.code === 404 && pagination.totalProducts > 0 && paginationFooter}
+      </Container>
     );
   }
 

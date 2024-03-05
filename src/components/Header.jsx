@@ -5,22 +5,11 @@ import Container from "./Container";
 import { toKebabCase } from "../utils/strings";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import staticData from "../staticData";
 
 const Header = ({ inside = false }) => {
   const ref = useRef(null);
   const cart = useSelector((state) => state.cart);
-
-  const storeItems = [
-    "Cactus Plants",
-    "Succulent Plants",
-    "Exotic Plants",
-    "Best Low Light Indoor Plants",
-    "Bails and Climbers",
-    "Trees",
-    "Seeds",
-    "Pots and Containers for plants",
-    "Gardening Accessories",
-  ];
 
   // To close the dropdown menu when clicked outside or on the link
   const handleClick = () => {
@@ -49,13 +38,13 @@ const Header = ({ inside = false }) => {
             <details ref={ref}>
               <summary>Store</summary>
               <ul className="p-2 bg-base-100 rounded-t-none w-max">
-                {storeItems.map((item) => (
-                  <li onClick={handleClick} key={item}>
+                {staticData.storeItems.map((item) => (
+                  <li onClick={handleClick} key={item.value}>
                     <Link
                       onClick={handleClick}
-                      to={`/collection/${toKebabCase(item)}`}
+                      to={`/collection/${toKebabCase(item.value)}`}
                     >
-                      {item}
+                      {item.name}
                     </Link>
                   </li>
                 ))}

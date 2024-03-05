@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { toKebabCase } from "../utils/strings";
 
 const ProductCard = ({ data, className = "" }) => {
   return (
@@ -19,12 +20,13 @@ const ProductCard = ({ data, className = "" }) => {
         <div className="card-actions flex justify-between items-end">
           <div className="card-actions">
             {data.categories?.map((category, index) => (
-              <button
+              <Link
+                to={"/category/" + toKebabCase(category)}
                 key={index}
                 className="btn btn-xs text-base-100 btn-accent"
               >
                 {category}
-              </button>
+              </Link>
             ))}
           </div>
           <div className="card-actions">

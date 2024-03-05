@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { toKebabCase } from "../utils/strings";
 
 const CollectionCard = ({ data }) => {
   return (
@@ -16,7 +15,7 @@ const CollectionCard = ({ data }) => {
         <h3 className="text-white text-2xl font-bold mb-2">{data.name}</h3>
         <p className="text-gray-400 text-lg mb-4">{data.desc}</p>
         <Link
-          to={"/collection/" + toKebabCase(data.name)}
+          to={"/collection/" + data.value.join(",")}
           className="btn btn-primary"
         >
           Explore Collection

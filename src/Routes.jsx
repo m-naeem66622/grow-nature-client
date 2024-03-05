@@ -33,11 +33,11 @@ export const publicRoutes = [
   },
   {
     path: "/collection/:collectionName",
-    element: <ComingSoon />,
+    element: <ProductList />,
   },
   {
     path: "/category/:categoryName",
-    element: <ComingSoon />,
+    element: <ProductList />,
   },
   {
     path: "/cart",
