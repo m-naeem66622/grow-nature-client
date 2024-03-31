@@ -47,7 +47,7 @@ function App() {
     if (authToken && userInfo?.role) {
       verifyToken();
     }
-  }, []);
+  }, [userInfo?.role]);
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);

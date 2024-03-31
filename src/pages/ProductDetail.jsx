@@ -60,6 +60,8 @@ const ProductDetail = () => {
 
   useEffect(() => {
     fetchProduct();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_id]);
 
   if (loading) {
@@ -198,20 +200,20 @@ const ProductDetail = () => {
         role="tablist"
         className="tabs tabs-bordered w-min mx-auto mt-12 mb-6"
       >
-        <a
+        <button
           role="tab"
           className={`tab ${activeTab === "description" ? "tab-active" : ""}`}
           onClick={() => handleTabClick("description")}
         >
           Description
-        </a>
-        <a
+        </button>
+        <button
           role="tab"
           className={`tab ${activeTab === "reviews" ? "tab-active" : ""}`}
           onClick={() => handleTabClick("reviews")}
         >
           Reviews
-        </a>
+        </button>
       </div>
       <div
         className={`tab-content ${activeTab === "description" ? "block" : ""}`}

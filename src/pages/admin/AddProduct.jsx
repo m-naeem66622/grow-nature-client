@@ -86,15 +86,13 @@ const AddProduct = () => {
 
   const handleKeyDown = (event, field) => {
     if (!inputValue) return;
-    switch (event.key) {
-      case "Enter":
-      case "Tab":
-        field.onChange([
-          ...field.value,
-          { label: inputValue, value: inputValue },
-        ]);
-        setInputValue("");
-        event.preventDefault();
+    if (["Enter", "Tab", ","].includes(event.key)) {
+      field.onChange([
+        ...field.value,
+        { label: inputValue, value: inputValue },
+      ]);
+      setInputValue("");
+      event.preventDefault();
     }
   };
 

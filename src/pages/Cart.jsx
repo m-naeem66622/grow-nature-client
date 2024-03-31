@@ -31,7 +31,7 @@ const Cart = () => {
     };
 
     try {
-      const response = await axios.post(`${ORDERS_URL}/create`, body, {
+      const response = await axios.post(`${ORDERS_URL}/`, body, {
         headers,
       });
       notify("success", response.data.message);

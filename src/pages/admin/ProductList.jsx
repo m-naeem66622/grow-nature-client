@@ -94,6 +94,8 @@ const ProductList = () => {
 
   useEffect(() => {
     fetchProducts();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
 
   const paginationHeader = (
