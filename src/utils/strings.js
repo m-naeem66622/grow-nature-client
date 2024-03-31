@@ -8,3 +8,11 @@ export function toTitleCase(str = "") {
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 }
+
+export const formatTime = (time) => {
+  const hours = Math.floor(time / 100);
+  const minutes = time % 100;
+  return `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}`;
+};

@@ -11,63 +11,21 @@ import AdminProductList from "./pages/admin/ProductList";
 import EditProduct from "./pages/admin/EditProduct";
 
 export const publicRoutes = [
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/products",
-    element: <ProductList />,
-  },
-  {
-    path: "/product/:_id",
-    element: <ProductDetail />,
-  },
-  {
-    path: "/collection/:collectionName",
-    element: <ProductList />,
-  },
-  {
-    path: "/category/:categoryName",
-    element: <ProductList />,
-  },
-  {
-    path: "/cart",
-    element: <Cart />,
-  },
-  {
-    path: "*",
-    element: <Page404 />,
-  },
+  { path: "/", element: <Home /> },
+  { path: "/login", element: <Login /> },
+  { path: "/register", element: <Register /> },
+  { path: "/products", element: <ProductList /> },
+  { path: "/product/:_id", element: <ProductDetail /> },
+  { path: "/collection/:collectionName", element: <ProductList /> },
+  { path: "/category/:categoryName", element: <ProductList /> },
+  { path: "/cart", element: <Cart /> },
+  { path: "*", element: <Page404 /> },
 ];
 
 export const adminRoutes = [
-  {
-    path: "/admin/dashboard",
-    element: <ComingSoon />,
-  },
-  {
-    path: "/admin/orders",
-    element: <ComingSoon />,
-  },
-  {
-    path: "/admin/products",
-    element: <AdminProductList />,
-  },
-  {
-    path: "/admin/product/create",
-    element: <AddProduct />,
-  },
-  {
-    path: "/admin/product/:_id/edit",
-    element: <EditProduct />,
-  },
+  { path: "/admin/dashboard", element: <ComingSoon /> },
+  { path: "/admin/orders", element: <ComingSoon /> },
+  { path: "/admin/products", element: <AdminProductList /> },
+  { path: "/admin/product/create", element: <AddProduct /> },
+  { path: "/admin/product/:_id/edit", element: <EditProduct /> },
 ];

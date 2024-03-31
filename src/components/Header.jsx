@@ -3,13 +3,16 @@ import Logo from "../assets/Logo";
 import { Link } from "react-router-dom";
 import Container from "./Container";
 import { toKebabCase } from "../utils/strings";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import staticData from "../staticData";
+import { logout } from "../slices/authSlice";
 
 const Header = ({ inside = false }) => {
   const ref = useRef(null);
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
+  const userInfo = useSelector((state) => state.auth).userInfo;
 
   // To close the dropdown menu when clicked outside or on the link
   const handleClick = () => {
@@ -98,6 +101,47 @@ const Header = ({ inside = false }) => {
               </div>
             </div>
           </div>
+        </div>
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
+            <div className="avatar">
+              <div className="w-6 rounded-full">
+                <img
+                  src="https://gravatar.com/avatar?s=50&d=mp"
+                  alt="User Avatar"
+                />
+              </div>
+            </div>
+          </div>
+          <ul
+            tabIndex={0}
+            className="mt-3 z-[1] dropdown-content menu gap-y-1 w-52 bg-base-100 shadow"
+          >
+            {userInfo ? (
+              <>
+                <li>
+                  <Link to="/profile">Profile</Link>
+                </li>
+                <li>
+                  <button
+                    onClick={() => dispatch(logout())}
+                    className="btn btn-sm text-left hover:btn-error hover:text-white"
+                  >
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <Link to="/login">Login</Link>
+                </li>
+                <li>
+                  <Link to="/register">Register</Link>
+                </li>
+              </>
+            )}
+          </ul>
         </div>
       </div>
     </Container>
