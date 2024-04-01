@@ -51,12 +51,14 @@ function Register() {
 
   const onSubmitHandle = async (data) => {
     const formattedData = isCaretaker
-      ? data
+      ? {...data, role: "CARETAKER"}
       : {
           firstName: data.firstName,
           lastName: data.lastName,
           email: data.email,
           password: data.password,
+          phoneNumber: data.phoneNumber,
+          address: data.address,
         };
 
     try {
@@ -184,7 +186,115 @@ function Register() {
               </span>
             </div>
           </label>
-
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Phone Number</span>
+            </div>
+            <input
+              type="tel"
+              placeholder="1234567890"
+              className="input input-bordered w-full input-md"
+              {...register("phoneNumber", {
+                required: "Phone number is required",
+              })}
+            />
+            <div className="label">
+              <span className="label-text-alt text-error">
+                {errors?.phoneNumber?.message}
+              </span>
+            </div>
+          </label>
+          <div className="divider"></div>
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Country</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Pakistan"
+              className="input input-bordered w-full input-md"
+              {...register("address.country", {
+                required: "Country is required",
+              })}
+            />
+            <div className="label">
+              <span className="label-text-alt text-error">
+                {errors?.address?.country?.message}
+              </span>
+            </div>
+          </label>
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">State</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Punjab"
+              className="input input-bordered w-full input-md"
+              {...register("address.state", {
+                required: "State is required",
+              })}
+            />
+            <div className="label">
+              <span className="label-text-alt text-error">
+                {errors?.address?.state?.message}
+              </span>
+            </div>
+          </label>
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">City</span>
+            </div>
+            <input
+              type="text"
+              placeholder="Lahore"
+              className="input input-bordered w-full input-md"
+              {...register("address.city", {
+                required: "City is required",
+              })}
+            />
+            <div className="label">
+              <span className="label-text-alt text-error">
+                {errors?.address?.city?.message}
+              </span>
+            </div>
+          </label>
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Street</span>
+            </div>
+            <input
+              type="text"
+              placeholder="123 Street"
+              className="input input-bordered w-full input-md"
+              {...register("address.street", {
+                required: "Street is required",
+              })}
+            />
+            <div className="label">
+              <span className="label-text-alt text-error">
+                {errors?.address?.street?.message}
+              </span>
+            </div>
+          </label>
+          <label className="form-control w-full">
+            <div className="label">
+              <span className="label-text">Zip Code</span>
+            </div>
+            <input
+              type="text"
+              placeholder="12345"
+              className="input input-bordered w-full input-md"
+              {...register("address.zipCode", {
+                required: "Zip code is required",
+              })}
+            />
+            <div className="label">
+              <span className="label-text-alt text-error">
+                {errors?.address?.zipCode?.message}
+              </span>
+            </div>
+          </label>
           {/* Add a checkbox switch to toggle between caretaker or regualr registration */}
           <div className="form-control w-full">
             <label className="label cursor-pointer">
@@ -198,6 +308,7 @@ function Register() {
           </div>
           {isCaretaker && (
             <>
+              <div className="divider"></div>
               {/* If isCaretaker is true, render the following fields */}
               <label className="form-control w-full">
                 <div className="label">

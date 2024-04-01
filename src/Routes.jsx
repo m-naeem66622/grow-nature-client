@@ -9,6 +9,7 @@ import ComingSoon from "./pages/ComingSoon";
 import AddProduct from "./pages/admin/AddProduct";
 import AdminProductList from "./pages/admin/ProductList";
 import EditProduct from "./pages/admin/EditProduct";
+import Profile from "./pages/Profile";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
@@ -20,6 +21,11 @@ export const publicRoutes = [
   { path: "/category/:categoryName", element: <ProductList /> },
   { path: "/cart", element: <Cart /> },
   { path: "*", element: <Page404 /> },
+];
+
+export const protectedRoutes = [
+  { path: "/profile", element: <Profile /> },
+  { path: "/orders", element: <ComingSoon /> },
 ];
 
 export const adminRoutes = [

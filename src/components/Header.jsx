@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import Logo from "../assets/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Container from "./Container";
 import { toKebabCase } from "../utils/strings";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import staticData from "../staticData";
 import { logout } from "../slices/authSlice";
 
 const Header = ({ inside = false }) => {
+  const navigate = useNavigate();
   const ref = useRef(null);
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -124,7 +125,10 @@ const Header = ({ inside = false }) => {
                 </li>
                 <li>
                   <button
-                    onClick={() => dispatch(logout())}
+                    onClick={() => {
+                      navigate("/");
+                      dispatch(logout());
+                    }}
                     className="btn btn-sm text-left hover:btn-error hover:text-white"
                   >
                     Logout
