@@ -28,13 +28,13 @@ const Header = ({ inside = false }) => {
     >
       <Link to="/" className="flex-1">
         <Logo className="w-32 text-white rounded-full shadow-md" />
-        <div className="flex flex-col pl-6">
+        <div className="hidden sm:flex flex-col pl-6">
           <span className="text-xl font-bold">Grow Nature</span>
           <span className="text-sm">No.1 Online Plant Store</span>
         </div>
       </Link>
       <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 hidden lg:flex">
           <li>
             <Link to="/products">Buy Plants Online</Link>
           </li>
@@ -46,7 +46,9 @@ const Header = ({ inside = false }) => {
                   <li onClick={handleClick} key={item.value}>
                     <Link
                       onClick={handleClick}
-                      to={`/collection/${toKebabCase(item.value)}`}
+                      to={`${
+                        item.value !== "caretakers" ? "/collection" : ""
+                      }/${toKebabCase(item.value)}`}
                     >
                       {item.name}
                     </Link>

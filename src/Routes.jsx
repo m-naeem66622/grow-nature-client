@@ -10,9 +10,13 @@ import AddProduct from "./pages/admin/AddProduct";
 import AdminProductList from "./pages/admin/ProductList";
 import EditProduct from "./pages/admin/EditProduct";
 import Profile from "./pages/Profile";
+import CaretakerList from "./pages/CareTakerList";
+import CaretakerDetail from "./pages/CaretakerDetail";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
+  { path: "/caretakers", element: <CaretakerList /> },
+  { path: "/caretaker/:_id", element: <CaretakerDetail /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/products", element: <ProductList /> },

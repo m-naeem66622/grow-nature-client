@@ -4,6 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      screens: {
+        xs: "320px",
+      },
       backgroundImage: {
         "hero-image":
           "url('https://images.unsplash.com/photo-1493957988430-a5f2e15f39a3')",

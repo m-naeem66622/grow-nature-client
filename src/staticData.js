@@ -55,6 +55,7 @@ const staticData = {
     },
   ],
   storeItems: [
+    { name: "Caretakers", value: "caretakers" },
     { name: "Cactus Plants", value: "cactus" },
     { name: "Succulent Plants", value: "succulent" },
     { name: "Exotic Plants", value: "exotic-plants" },
