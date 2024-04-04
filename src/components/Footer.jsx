@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import Logo from "../assets/Logo";
 import Container from "./Container";
 
@@ -10,24 +11,24 @@ const Footer = () => {
           <p className="text-base">&copy; Grow Nature. All rights reserved.</p>
         </aside>
         <nav className="grid-flow-col gap-4 md:place-self-center md:justify-self-end text-xl">
-          <a
-            href="#"
+          <Link
+            to="#"
             className="hover:text-primary transition-colors duration-300"
           >
             <i className="fab fa-facebook-f" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="hover:text-primary transition-colors duration-300"
           >
             <i className="fab fa-twitter" />
-          </a>
-          <a
+          </Link>
+          <Link
             href="#"
             className="hover:text-primary transition-colors duration-300"
           >
             <i className="fab fa-instagram" />
-          </a>
+          </Link>
         </nav>
       </Container>
     </footer>

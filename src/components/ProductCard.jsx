@@ -4,7 +4,7 @@ import { toKebabCase } from "../utils/strings";
 
 const ProductCard = ({ data, className = "" }) => {
   return (
-    <div className={`card bg-base-100 shadow-/xl w-80 ${className}`}>
+    <div className={`card bg-base-100 shadow-xl w-80 ${className}`}>
       <figure className="aspect-square">
         <img
           src={data.src[0]}

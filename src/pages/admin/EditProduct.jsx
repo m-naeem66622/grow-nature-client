@@ -102,6 +102,9 @@ const EditProduct = () => {
         ]);
         setInputValue("");
         event.preventDefault();
+        break;
+      default:
+        break;
     }
   };
 
@@ -139,6 +142,8 @@ const EditProduct = () => {
 
   useEffect(() => {
     fetchProduct();
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [_id]);
 
   if (loading) {
