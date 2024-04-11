@@ -16,6 +16,7 @@ const Profile = () => {
           />
         </figure>
         <div className="card-body">
+          <div className="badge badge-lg badge-success mx-auto">{userInfo.role}</div>
           <div className="flex flex-col items-center">
             <h2 className="card-title">
               {userInfo.firstName} {userInfo.lastName}
@@ -41,46 +42,50 @@ const Profile = () => {
           <p>
             <strong>Phone:</strong> {userInfo.phoneNumber}
           </p>
-          <p>
-            <strong>Speciality:</strong> {userInfo.speciality}
-          </p>
-          <p className="flex">
-            <strong>Experience:</strong>
-            <ul className="list-disc ml-8">
-              {userInfo.experience.map((experience, index) => (
-                <li key={index}>{experience}</li>
-              ))}
-            </ul>
-          </p>
-          <p className="flex">
-            <strong>Services:</strong>
-            <ul className="list-disc ml-8">
-              {userInfo.services.map((service, index) => (
-                <li key={index}>{service}</li>
-              ))}
-            </ul>
-          </p>
-          <p className="flex">
-            <strong>Pricing:</strong>
-            <ul className="list-disc ml-8">
-              {userInfo.pricing.map((pricing, index) => (
-                <li key={index}>
-                  {pricing.service} - PKR {pricing.price}/-
-                </li>
-              ))}
-            </ul>
-          </p>
-          <p className="flex">
-            <strong>Availability:</strong>
-            <ul className="list-disc ml-8">
-              {userInfo.availability.map((available, index) => (
-                <li key={index}>
-                  {available.day} | {formatTime(available.start)} -{" "}
-                  {formatTime(available.end)}
-                </li>
-              ))}
-            </ul>
-          </p>
+          {userInfo.role === "CARETAKER" && (
+            <>
+              <p>
+                <strong>Speciality:</strong> {userInfo.speciality}
+              </p>
+              <p className="flex">
+                <strong>Experience:</strong>
+                <ul className="list-disc ml-8">
+                  {userInfo.experience.map((experience, index) => (
+                    <li key={index}>{experience}</li>
+                  ))}
+                </ul>
+              </p>
+              <p className="flex">
+                <strong>Services:</strong>
+                <ul className="list-disc ml-8">
+                  {userInfo.services.map((service, index) => (
+                    <li key={index}>{service}</li>
+                  ))}
+                </ul>
+              </p>
+              <p className="flex">
+                <strong>Pricing:</strong>
+                <ul className="list-disc ml-8">
+                  {userInfo.pricing.map((pricing, index) => (
+                    <li key={index}>
+                      {pricing.service} - PKR {pricing.price}/-
+                    </li>
+                  ))}
+                </ul>
+              </p>
+              <p className="flex">
+                <strong>Availability:</strong>
+                <ul className="list-disc ml-8">
+                  {userInfo.availability.map((available, index) => (
+                    <li key={index}>
+                      {available.day} | {formatTime(available.start)} -{" "}
+                      {formatTime(available.end)}
+                    </li>
+                  ))}
+                </ul>
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

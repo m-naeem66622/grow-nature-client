@@ -8,6 +8,7 @@ import { queryParser } from "../../utils/queryParser";
 import { APPOINTMENTS_URL } from "../../constans";
 import { toTitleCase } from "../../utils/strings";
 import AppointmentEditModal from "./AppointmentEditModal";
+import ConfirmationModal from "../../components/ConfirmationModal";
 
 const AppointmentList = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,7 +20,8 @@ const AppointmentList = () => {
   const limit = searchParams.get("limit") || 12;
   const [appointment, setAppointment] = useState({});
   const [isOpen, setIsOpen] = useState(false);
-  const modalRef = useRef(null);
+  const editModalRef = useRef(null);
+  const deleteModalRef = useRef(null);
 
   const title = "Your Appointments";
 
@@ -51,6 +53,55 @@ const AppointmentList = () => {
     setLoading(false);
   };
 
+  const handleDelete = async (_id) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .delete(`${APPOINTMENTS_URL}/${_id}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
+        .then((response) => {
+          notify("success", response.data.message);
+
+          if (pagination.currentPage < pagination.totalPages) {
+            fetchAppointments();
+          } else {
+            setData(data.filter((p) => p._id !== _id));
+            setPagination((prevState) => {
+              const newTotalProducts = prevState.totalAppointments - 1;
+              return {
+                ...prevState,
+                totalAppointments: newTotalProducts,
+                currentAppointments: prevState.currentAppointments - 1,
+                totalPages: Math.ceil(newTotalProducts / limit),
+              };
+            });
+
+            if (pagination.currentAppointments === 1) {
+              setSearchParams({ page: page - 1, limit });
+            }
+          }
+
+          resolve(); // Resolve the promise if the deletion was successful
+        })
+        .catch((error) => {
+          let message;
+
+          if (!error.response) message = error.message;
+          else message = toTitleCase(error.response?.data.error.message);
+
+          if (error.response?.status === 400) {
+            message = error.response?.data.message;
+          }
+
+          console.log("Error:", error.response?.data);
+          notify("error", message);
+          resolve(); // Resolve the promise even if the deletion failed
+        });
+    });
+  };
+
   const updateExistingData = (updatedAppointment) => {
     const updatedData = data.map((appointment) =>
       appointment._id === updatedAppointment._id
@@ -68,14 +119,14 @@ const AppointmentList = () => {
 
   useEffect(() => {
     if (isOpen) {
-      modalRef.current.showModal();
+      editModalRef.current.showModal();
     }
 
-    if (!modalRef.current) {
+    if (!editModalRef.current) {
       setIsOpen(false);
       setAppointment({});
     }
-  }, [isOpen, modalRef]);
+  }, [isOpen, editModalRef]);
 
   const paginationHeader = (
     <div className="flex justify-center items-center mb-4">
@@ -150,9 +201,19 @@ const AppointmentList = () => {
 
   return (
     <>
+      <ConfirmationModal
+        modalRef={deleteModalRef}
+        onConfirm={() => handleDelete(appointment._id)}
+        variant="delete"
+      >
+        <h3 className="font-bold text-lg">Delete Confirmation</h3>
+        <p className="py-4">
+          Are you sure you want to delete this appointment?
+        </p>
+      </ConfirmationModal>
       {isOpen && (
         <AppointmentEditModal
-          modalRef={modalRef}
+          modalRef={editModalRef}
           setIsOpen={setIsOpen}
           updateData={updateExistingData}
           data={appointment}
@@ -194,7 +255,13 @@ const AppointmentList = () => {
                     End Time: {new Date(appointment.end).toLocaleString()}
                   </p>
                   <div className="flex justify-end gap-x-2">
-                    <button className="btn btn-sm bg-red-500 text-white border-0">
+                    <button
+                      className="btn btn-sm bg-red-500 text-white border-0"
+                      onClick={() => {
+                        setAppointment(appointment);
+                        deleteModalRef.current.showModal();
+                      }}
+                    >
                       Delete
                     </button>
                     <button
