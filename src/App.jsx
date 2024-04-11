@@ -6,7 +6,13 @@ import { Route, Routes, useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { adminRoutes, protectedRoutes, publicRoutes } from "./Routes";
+import {
+  adminRoutes,
+  buyerRoutes,
+  caretakerRoutes,
+  protectedRoutes,
+  publicRoutes,
+} from "./Routes";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import AdminRoute from "./components/AdminRoute";
@@ -14,6 +20,8 @@ import ThemeController from "./components/ThemeController";
 import { setCredentials } from "./slices/authSlice";
 import { USERS_URL } from "./constans";
 import ProtectedRoute from "./components/ProtectedRoute";
+import CaretakerRoute from "./components/CaretakerRoute";
+import BuyerRoute from "./components/BuyerRoute";
 
 function App() {
   const location = useLocation();
@@ -72,8 +80,18 @@ function App() {
               <Route key={index} path={route.path} element={route.element} />
             ))}
           </Route>
+          <Route path="" element={<BuyerRoute />}>
+            {buyerRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          </Route>
           <Route path="" element={<AdminRoute />}>
             {adminRoutes.map((route, index) => (
+              <Route key={index} path={route.path} element={route.element} />
+            ))}
+          </Route>
+          <Route path="" element={<CaretakerRoute />}>
+            {caretakerRoutes.map((route, index) => (
               <Route key={index} path={route.path} element={route.element} />
             ))}
           </Route>

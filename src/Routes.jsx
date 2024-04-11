@@ -12,6 +12,9 @@ import EditProduct from "./pages/admin/EditProduct";
 import Profile from "./pages/Profile";
 import CaretakerList from "./pages/CareTakerList";
 import CaretakerDetail from "./pages/CaretakerDetail";
+import CaretakerAppointmentList from "./pages/caretaker/AppointmentList";
+import AppointmentDetail from "./pages/private/AppointmentDetail";
+import CustomerAppointmentList from "./pages/customer/AppointmentList";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
@@ -27,9 +30,13 @@ export const publicRoutes = [
   { path: "*", element: <Page404 /> },
 ];
 
-export const protectedRoutes = [
-  { path: "/profile", element: <Profile /> },
-  { path: "/orders", element: <ComingSoon /> },
+export const protectedRoutes = [{ path: "/profile", element: <Profile /> }];
+
+export const buyerRoutes = [
+  { path: "/user/orders", element: <ComingSoon /> },
+  { path: "/user/appointments", element: <CustomerAppointmentList /> },
+  { path: "/user/exchange", element: <ComingSoon /> },
+  { path: "/user/appointment/:_id", element: <ComingSoon /> },
 ];
 
 export const adminRoutes = [
@@ -38,4 +45,9 @@ export const adminRoutes = [
   { path: "/admin/products", element: <AdminProductList /> },
   { path: "/admin/product/create", element: <AddProduct /> },
   { path: "/admin/product/:_id/edit", element: <EditProduct /> },
+];
+
+export const caretakerRoutes = [
+  { path: "/manage/appointments", element: <CaretakerAppointmentList /> },
+  { path: "/manage/appointment/:_id", element: <AppointmentDetail /> },
 ];

@@ -20,6 +20,19 @@ const Header = ({ inside = false }) => {
     ref.current.removeAttribute("open");
   };
 
+  const DROPDOWN_OPTIONS = {
+    ADMIN: [
+      { label: "Orders", value: "/admin/orders" },
+      { label: "Products", value: "/admin/products" },
+    ],
+    BUYER: [
+      { label: "My Orders", value: "/user/orders" },
+      { label: "My Appointments", value: "/user/appointments" },
+      { label: "My Exchange", value: "/user/exchange" },
+    ],
+    CARETAKER: [{ label: "My Appointments", value: "/manage/appointments" }],
+  };
+
   return (
     <Container
       className={`navbar backdrop-blur py-6 relative z-10 mb-8 ${
@@ -88,7 +101,7 @@ const Header = ({ inside = false }) => {
           </div>
           <div
             tabIndex={0}
-            className="mt-3 z-[1] card card-compact dropdown-content w-52 bg-base-100 shadow"
+            className="mt-3 z-[1] card card-compact dropdown-content rounded-box w-52 bg-base-100 shadow"
           >
             <div className="card-body">
               <span className="font-bold text-lg">
@@ -118,13 +131,18 @@ const Header = ({ inside = false }) => {
           </div>
           <ul
             tabIndex={0}
-            className="mt-3 z-[1] dropdown-content menu gap-y-1 w-52 bg-base-100 shadow"
+            className="mt-3 z-[1] dropdown-content menu rounded-box gap-y-1 w-52 bg-base-100 shadow"
           >
             {userInfo ? (
               <>
                 <li>
                   <Link to="/profile">Profile</Link>
                 </li>
+                {DROPDOWN_OPTIONS[userInfo.role].map((option) => (
+                  <li key={option.value}>
+                    <Link to={`${option.value}`}>{option.label}</Link>
+                  </li>
+                ))}
                 <li>
                   <button
                     onClick={() => {

@@ -18,3 +18,23 @@ export const formatTime = (time) => {
     .toString()
     .padStart(2, "0")} ${period}`;
 };
+
+export const getLocalTimeZone = (ISOString) => {
+  return new Date(ISOString)
+    .toLocaleString("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    })
+    .replace(/\//g, "-")
+    .replace(", ", "T");
+};
+
+export function reformatDate(dateString) {
+  const [date, time] = dateString.split("T");
+  const [day, month, year] = date.split("-");
+  return `${year}-${month}-${day}T${time}`;
+}

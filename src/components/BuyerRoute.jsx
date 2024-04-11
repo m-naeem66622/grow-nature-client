@@ -2,12 +2,8 @@ import { Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Page404 from "../pages/Page404";
 
-const ProtectedRoute = () => {
+const BuyerRoute = () => {
   const { userInfo } = useSelector((state) => state.auth);
-  return userInfo && ["CARETAKER", "BUYER", "ADMIN"].includes(userInfo.role) ? (
-    <Outlet />
-  ) : (
-    <Page404 />
-  );
+  return userInfo && userInfo.role === "BUYER" ? <Outlet /> : <Page404 />;
 };
-export default ProtectedRoute;
+export default BuyerRoute;
