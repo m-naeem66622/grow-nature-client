@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import axios from "axios";
 import Container from "../components/Container";
@@ -8,6 +8,7 @@ import { queryParser } from "../utils/queryParser";
 import { PLANT_SWAPS_URL } from "../constans";
 import { toTitleCase } from "../utils/strings";
 import { useSelector } from "react-redux";
+import ConfirmationModal from "../components/ConfirmationModal";
 
 const PlantSwapList = () => {
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -18,8 +19,40 @@ const PlantSwapList = () => {
   const [loading, setLoading] = useState(true);
   const page = searchParams.get("page") || 1;
   const limit = searchParams.get("limit") || 12;
+  const [plantSwap, setPlantSwap] = useState({ offeredPlants: [] });
+  const modalRef = useRef(null);
 
   const title = "My Plant Swaps";
+
+  const handleMakeDeal = async (_id) => {
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`${PLANT_SWAPS_URL}/${_id}/deal`, null, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          },
+        })
+        .then((response) => {
+          notify("success", response.data.message);
+          fetchPlantSwaps();
+          resolve(); // Resolve the promise if the deal was successful
+        })
+        .catch((error) => {
+          let message;
+
+          if (!error.response) message = error.message;
+          else message = toTitleCase(error.response?.data.error?.message);
+
+          if (error.response?.status === 400) {
+            message = error.response?.data.message;
+          }
+
+          console.log("Error:", error.response?.data);
+          notify("error", message);
+          resolve(); // Resolve the promise even if the deal failed
+        });
+    });
+  };
 
   const fetchPlantSwaps = async () => {
     const query = queryParser({ page, limit });
@@ -137,6 +170,25 @@ const PlantSwapList = () => {
 
   return (
     <>
+      <ConfirmationModal
+        modalRef={modalRef}
+        onConfirm={() => handleMakeDeal(plantSwap._id)}
+        variant=""
+      >
+        <h3 className="font-bold text-lg">
+          You are about to swap your plants with the following offered plants:
+        </h3>
+        <ul className="list-decimal ml-8">
+          {plantSwap.offeredPlants.map((plant) => (
+            <li key={plant._id}>{plant.name}</li>
+          ))}
+        </ul>
+        <p className="py-4">
+          Are you sure you want to make this deal?
+          <br />
+          <em>This action cannot be undone.</em>
+        </p>
+      </ConfirmationModal>
       <Container>
         <div className="flex justify-between">
           <Heading className="text-4xl font-bold mb-8 mt-4">{title}</Heading>
@@ -193,7 +245,14 @@ const PlantSwapList = () => {
                 </ul>
                 <div className="flex justify-end gap-x-2">
                   {userInfo ? (
-                    <button className="btn btn-sm btn-primary">
+                    <button
+                      className="btn btn-sm
+                       btn-primary"
+                      onClick={(e) => {
+                        setPlantSwap(plantSwap);
+                        modalRef.current.showModal();
+                      }}
+                    >
                       Make a Deal
                     </button>
                   ) : (
