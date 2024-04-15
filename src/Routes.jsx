@@ -15,11 +15,16 @@ import CaretakerDetail from "./pages/CaretakerDetail";
 import CaretakerAppointmentList from "./pages/caretaker/AppointmentList";
 import AppointmentDetail from "./pages/private/AppointmentDetail";
 import CustomerAppointmentList from "./pages/customer/AppointmentList";
+import UserPlantSwapList from "./pages/customer/PlantSwapList";
+import PlantSwapList from "./pages/PlantSwapList";
+import EditPlantSwap from "./pages/customer/EditPlantSwap";
+import AddPlantSwap from "./pages/customer/AddPlantSwap";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
   { path: "/caretakers", element: <CaretakerList /> },
   { path: "/caretaker/:_id", element: <CaretakerDetail /> },
+  { path: "/plant-swaps", element: <PlantSwapList /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/products", element: <ProductList /> },
@@ -35,7 +40,9 @@ export const protectedRoutes = [{ path: "/profile", element: <Profile /> }];
 export const buyerRoutes = [
   { path: "/user/orders", element: <ComingSoon /> },
   { path: "/user/appointments", element: <CustomerAppointmentList /> },
-  { path: "/user/exchange", element: <ComingSoon /> },
+  { path: "/user/plant-swaps", element: <UserPlantSwapList /> },
+  { path: "/user/plant-swaps/create", element: <AddPlantSwap /> },
+  { path: "/user/plant-swaps/:_id/edit", element: <EditPlantSwap /> },
   { path: "/user/appointment/:_id", element: <ComingSoon /> },
 ];
 

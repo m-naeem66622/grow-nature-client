@@ -28,7 +28,7 @@ const Header = ({ inside = false }) => {
     BUYER: [
       { label: "My Orders", value: "/user/orders" },
       { label: "My Appointments", value: "/user/appointments" },
-      { label: "My Exchange", value: "/user/exchange" },
+      { label: "My Swaps", value: "/user/plant-swaps" },
     ],
     CARETAKER: [{ label: "My Appointments", value: "/manage/appointments" }],
   };
