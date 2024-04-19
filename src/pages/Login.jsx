@@ -38,6 +38,8 @@ function Login() {
       if (!error.response) notifyMsg.message = error.message;
       if (error.response?.status === 401)
         notifyMsg.message = toTitleCase(error.response.data.message);
+      if (error.response?.status === 403)
+        notifyMsg.message = toTitleCase(error.response.data.message);
 
       notify(notifyMsg.type, notifyMsg.message);
     }

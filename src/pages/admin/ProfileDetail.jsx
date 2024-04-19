@@ -21,7 +21,7 @@ const ProfileDetail = () => {
       });
       setData(response.data.data);
     } catch (error) {
-      console.log("Error while fetching appointment:", error.response?.data);
+      console.log("Error while fetching profile:", error.response?.data);
       let errorObj = {};
       if (!error.response)
         errorObj = { code: error.code, message: error.message };

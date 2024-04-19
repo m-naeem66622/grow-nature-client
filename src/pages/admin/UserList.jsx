@@ -19,7 +19,7 @@ const UserList = () => {
 
   const title = "Manage Users";
 
-  const fetchAppointments = async () => {
+  const fetchUsers = async () => {
     const query = queryParser({ page, limit });
     try {
       const response = await axios.get(`${USERS_URL}/profiles?${query}`, {
@@ -64,7 +64,7 @@ const UserList = () => {
         }
       );
 
-      // Update the appointment status in the UI
+      // Update the user status in the UI
       const updatedData = data.map((user) =>
         user._id === _id ? { ...user, isBlocked } : user
       );
@@ -83,7 +83,7 @@ const UserList = () => {
   };
 
   useEffect(() => {
-    fetchAppointments();
+    fetchUsers();
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page, limit]);
@@ -187,28 +187,6 @@ const UserList = () => {
                   <td>{user.email}</td>
                   <td>{user.phoneNumber}</td>
                   <td>{user.role}</td>
-                  {/* <td>
-                    {new Date(user.start).toLocaleDateString("en-US", {
-                      month: "long",
-                      year: "numeric",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                      hour12: true,
-                    })}
-                  </td>
-                  <td>
-                    {new Date(user.end).toLocaleDateString("en-US", {
-                      month: "long",
-                      year: "numeric",
-                      day: "numeric",
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      second: "2-digit",
-                      hour12: true,
-                    })}
-                  </td> */}
                   <td>
                     <select
                       value={user.isBlocked.toString()}

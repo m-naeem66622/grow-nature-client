@@ -25,7 +25,8 @@ const CaretakerDetail = () => {
       setLoading(false);
     } catch (error) {
       console.log("Error while fetching profile:", error);
-      setError({ ...error.response.data, code: error.response.status });
+      if (!error.response) setError({ code: error.code, message: error.message });
+      else setError({ ...error.response.data, code: error.response.status });
       setLoading(false);
       notify("error", "Error while fetching profile");
     }
@@ -63,8 +64,8 @@ const CaretakerDetail = () => {
         modalRef={modalRef}
       />
       <Container className="">
-        <div className="max-w-4xl mx-auto rounded-lg shadow-md overflow-hidden">
-          <div className="px-8 pt-8 mb-4">
+        <div className="max-w-4xl py-6 mx-auto rounded-lg shadow-md overflow-hidden">
+          <div className="px-8 mb-4">
             <div className="">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{`${data.role} Profile`}</div>
               <h2 className="block mt-1 text-lg leading-tight font-medium">{`${data.firstName} ${data.lastName}`}</h2>
