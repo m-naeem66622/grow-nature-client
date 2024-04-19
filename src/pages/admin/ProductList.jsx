@@ -178,9 +178,14 @@ const ProductList = () => {
         <h3 className="font-bold text-lg">Delete Confirmation</h3>
         <p className="py-4">Are you sure you want to delete this product?</p>
       </ConfirmationModal>
-      <Heading level={1} className="mb-8 mt-4">
-        Products Management
-      </Heading>
+      <div className="flex flex-wrap justify-between">
+        <Heading level={1} className="mb-8 mt-4">
+          Products Management
+        </Heading>
+        <Link to="/admin/product/create" className="btn btn-primary">
+          Add Product
+        </Link>
+      </div>
       {paginationHeader}
       <div className="overflow-x-auto mt-8">
         <table className="table">

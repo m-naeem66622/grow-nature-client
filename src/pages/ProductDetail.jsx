@@ -6,7 +6,7 @@ import Container from "../components/Container";
 import Heading from "../components/Heading";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { notify } from "../utils/notify";
-import { PRODUCTS_URL } from "../constans";
+import { BASE_URL, PRODUCTS_URL } from "../constans";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -90,7 +90,12 @@ const ProductDetail = () => {
         <div className="md:col-span-2 lg:col-span-1">
           <div className="w-full rounded-lg aspect-[4/3]">
             <img
-              src={data.src && data.src[selectedImage]}
+              src={
+                (data.src && data.src[selectedImage]?.startsWith("https:")) ||
+                data.src[selectedImage]?.startsWith("http:")
+                  ? data.src[selectedImage]
+                  : `${BASE_URL}/api/v1/${data.src[selectedImage]}`
+              }
               alt={data.name}
               className="w-full h-full object-cover rounded-lg"
             />
@@ -108,7 +113,11 @@ const ProductDetail = () => {
                 onClick={() => handleImageSelect(index)}
               >
                 <img
-                  src={image}
+                  src={
+                    image.startsWith("https:") || image.startsWith("http:")
+                      ? image
+                      : `${BASE_URL}/api/v1/${image}`
+                  }
                   alt={data.name}
                   className="w-full h-full object-cover rounded-lg"
                 />

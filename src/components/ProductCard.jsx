@@ -1,15 +1,20 @@
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { toKebabCase } from "../utils/strings";
+import { BASE_URL } from "../constans";
 
 const ProductCard = ({ data, className = "" }) => {
   return (
     <div className={`card bg-base-100 shadow-xl w-80 ${className}`}>
       <figure className="aspect-square">
         <img
-          src={data.src[0]}
+          src={
+            data.src[0]?.startsWith("https:") || data.src[0]?.startsWith("http:")
+              ? data.src[0]
+              : `${BASE_URL}/api/v1/${data.src[0]}`
+          }
           className="object-cover w-full h-full"
-          alt="Shoes"
+          alt={data.name}
         />
       </figure>
       <div className="card-body">

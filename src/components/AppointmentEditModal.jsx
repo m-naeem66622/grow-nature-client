@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import { APPOINTMENTS_URL } from "../../constans";
+import { APPOINTMENTS_URL } from "../constans";
 import axios from "axios";
-import { notify } from "../../utils/notify";
+import { notify } from "../utils/notify";
 import {
   getLocalTimeZone,
   reformatDate,
   toTitleCase,
-} from "../../utils/strings";
+} from "../utils/strings";
 import { useEffect } from "react";
 
 const AppointmentEditModal = ({ modalRef, data, setIsOpen, updateData }) => {

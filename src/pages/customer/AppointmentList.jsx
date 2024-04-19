@@ -7,7 +7,7 @@ import { notify } from "../../utils/notify";
 import { queryParser } from "../../utils/queryParser";
 import { APPOINTMENTS_URL } from "../../constans";
 import { toTitleCase } from "../../utils/strings";
-import AppointmentEditModal from "./AppointmentEditModal";
+import AppointmentEditModal from "../../components/AppointmentEditModal";
 import ConfirmationModal from "../../components/ConfirmationModal";
 
 const AppointmentList = () => {
