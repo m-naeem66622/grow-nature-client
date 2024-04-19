@@ -197,4 +197,13 @@ const staticData = {
   ],
 };
 
+export const statusColorMap = {
+  CANCELLED: "bg-red-500 text-white",
+  PENDING: "bg-yellow-500 text-black",
+  PAID: "bg-green-500 text-white",
+  PROCESSING: "bg-yellow-500 text-black",
+  SHIPPED: "bg-blue-500 text-white",
+  DELIVERED: "bg-green-500 text-white",
+};
+
 export default staticData;

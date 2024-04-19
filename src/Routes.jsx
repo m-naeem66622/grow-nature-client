@@ -5,7 +5,6 @@ import ProductDetail from "./pages/ProductDetail";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Cart from "./pages/Cart";
-import ComingSoon from "./pages/ComingSoon";
 import AddProduct from "./pages/admin/AddProduct";
 import AdminProductList from "./pages/admin/ProductList";
 import EditProduct from "./pages/admin/EditProduct";
@@ -21,6 +20,9 @@ import EditPlantSwap from "./pages/customer/EditPlantSwap";
 import AddPlantSwap from "./pages/customer/AddPlantSwap";
 import UserList from "./pages/admin/UserList";
 import ProfileDetail from "./pages/admin/ProfileDetail";
+import CustomerOrderList from "./pages/customer/OrderList";
+import UserOrderList from "./pages/admin/OrderList";
+import OrderDetail from "./pages/private/OrderDetail";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
@@ -40,19 +42,19 @@ export const publicRoutes = [
 export const protectedRoutes = [{ path: "/profile", element: <Profile /> }];
 
 export const buyerRoutes = [
-  { path: "/user/orders", element: <ComingSoon /> },
+  { path: "/user/orders", element: <CustomerOrderList /> },
+  { path: "/user/order/:_id", element: <OrderDetail /> },
   { path: "/user/appointments", element: <CustomerAppointmentList /> },
   { path: "/user/plant-swaps", element: <UserPlantSwapList /> },
   { path: "/user/plant-swaps/create", element: <AddPlantSwap /> },
   { path: "/user/plant-swaps/:_id/edit", element: <EditPlantSwap /> },
-  { path: "/user/appointment/:_id", element: <ComingSoon /> },
 ];
 
 export const adminRoutes = [
-  { path: "/admin/dashboard", element: <ComingSoon /> },
   { path: "/admin/users", element: <UserList /> },
   { path: "/admin/user/:_id", element: <ProfileDetail /> },
-  { path: "/admin/orders", element: <ComingSoon /> },
+  { path: "/admin/orders", element: <UserOrderList /> },
+  { path: "/admin/order/:_id", element: <OrderDetail /> },
   { path: "/admin/products", element: <AdminProductList /> },
   { path: "/admin/product/create", element: <AddProduct /> },
   { path: "/admin/product/:_id/edit", element: <EditProduct /> },
