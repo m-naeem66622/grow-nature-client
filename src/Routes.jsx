@@ -19,6 +19,8 @@ import UserPlantSwapList from "./pages/customer/PlantSwapList";
 import PlantSwapList from "./pages/PlantSwapList";
 import EditPlantSwap from "./pages/customer/EditPlantSwap";
 import AddPlantSwap from "./pages/customer/AddPlantSwap";
+import UserList from "./pages/admin/UserList";
+import ProfileDetail from "./pages/admin/ProfileDetail";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
@@ -48,6 +50,8 @@ export const buyerRoutes = [
 
 export const adminRoutes = [
   { path: "/admin/dashboard", element: <ComingSoon /> },
+  { path: "/admin/users", element: <UserList /> },
+  { path: "/admin/user/:_id", element: <ProfileDetail /> },
   { path: "/admin/orders", element: <ComingSoon /> },
   { path: "/admin/products", element: <AdminProductList /> },
   { path: "/admin/product/create", element: <AddProduct /> },

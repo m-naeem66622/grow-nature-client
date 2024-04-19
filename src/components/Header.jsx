@@ -22,15 +22,16 @@ const Header = ({ inside = false }) => {
 
   const DROPDOWN_OPTIONS = {
     ADMIN: [
-      { label: "Orders", value: "/admin/orders" },
-      { label: "Products", value: "/admin/products" },
+      { label: "Manage Users", value: "/admin/users" },
+      { label: "Manage Orders", value: "/admin/orders" },
+      { label: "Manage Products", value: "/admin/products" },
     ],
     BUYER: [
       { label: "My Orders", value: "/user/orders" },
       { label: "My Appointments", value: "/user/appointments" },
       { label: "My Swaps", value: "/user/plant-swaps" },
     ],
-    CARETAKER: [{ label: "My Appointments", value: "/manage/appointments" }],
+    CARETAKER: [{ label: "Manage Appointments", value: "/manage/appointments" }],
   };
 
   return (
