@@ -28,23 +28,6 @@ const ProductDetail = () => {
     setActiveTab(tab);
   };
 
-  const reviews = [
-    {
-      id: 1,
-      author: "John Doe",
-      rating: 5,
-      comment:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.",
-    },
-    {
-      id: 2,
-      author: "Jane Doe",
-      rating: 3,
-      comment:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptates.",
-    },
-  ];
-
   const fetchProduct = async () => {
     try {
       const response = await axios.get(`${PRODUCTS_URL}/${_id}`);
@@ -230,19 +213,23 @@ const ProductDetail = () => {
         <p>{data.longDesc}</p>
       </div>
       <div className={`tab-content ${activeTab === "reviews" ? "block" : ""}`}>
-        {reviews.map((review) => (
-          <div key={review.id} className="flex items-center mb-4">
-            <div className="flex-shrink-0">
+        {data.reviews.length > 0 ? (
+          data.reviews.map((review) => (
+            <div
+              key={review.id}
+              className="shadow-lg p-4 mb-4 rounded-lg flex items-start"
+            >
               <img
                 src={`https://gravatar.com/avatar?s=200&d=mp`}
-                alt={review.author}
-                className="w-10 h-10 rounded-full"
+                alt={`${review.user.firstName} ${review.user.lastName}`}
+                className="w-10 h-10 rounded-full mr-4"
               />
-            </div>
-            <div className="ml-3">
-              <h3 className="text-lg font-medium">{review.author}</h3>
-              <div className="flex items-center">
-                <span className="flex">
+              <div>
+                <h3 className="text-lg font-medium">
+                  {review.user.firstName} {review.user.lastName}
+                </h3>
+                <p className="text-sm text-gray-500">{review.user.email}</p>
+                <div className="flex items-center mt-2">
                   {Array.from({ length: 5 }).map((_, index) => (
                     <i
                       key={index}
@@ -253,15 +240,21 @@ const ProductDetail = () => {
                       }`}
                     ></i>
                   ))}
-                </span>
-                <span className="ml-1 text-gray-600">
-                  {review.rating} out of 5
-                </span>
+                  <span className="ml-2 text-gray-600">
+                    {review.rating} out of 5
+                  </span>
+                </div>
+                <p className="mt-2">{review.comment}</p>
+                <p className="mt-2 text-sm text-gray-500">
+                  Reviewed on {new Date(review.updatedAt).toLocaleDateString()}{" "}
+                  {review.createdAt !== review.updatedAt ? "(Edited)" : ""}
+                </p>
               </div>
-              <p className="text-gray-800">{review.comment}</p>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+          <p className="text-center">No reviews yet for this product.</p>
+        )}
       </div>
     </Container>
   );
