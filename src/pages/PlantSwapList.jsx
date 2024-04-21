@@ -22,7 +22,7 @@ const PlantSwapList = () => {
   const [plantSwap, setPlantSwap] = useState({ offeredPlants: [] });
   const modalRef = useRef(null);
 
-  const title = "My Plant Swaps";
+  const title = "Plant Swap Marketplace";
 
   const handleMakeDeal = async (_id) => {
     return new Promise((resolve, reject) => {
@@ -148,9 +148,6 @@ const PlantSwapList = () => {
       <Container>
         <div className="flex justify-between">
           <Heading className="text-4xl font-bold mb-8 mt-4">{title}</Heading>
-          <Link to="/plant-swaps/create" className="btn btn-primary">
-            Create Plant Swap
-          </Link>
         </div>
         {error.code === 404 &&
           pagination.totalPlantSwaps > 0 &&
@@ -192,9 +189,6 @@ const PlantSwapList = () => {
       <Container>
         <div className="flex justify-between">
           <Heading className="text-4xl font-bold mb-8 mt-4">{title}</Heading>
-          <Link to="/user/plant-swaps/create" className="btn btn-primary">
-            Create Plant Swap
-          </Link>
         </div>
         {paginationHeader}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

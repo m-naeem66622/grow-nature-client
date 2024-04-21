@@ -31,7 +31,9 @@ const Header = ({ inside = false }) => {
       { label: "My Appointments", value: "/user/appointments" },
       { label: "My Swaps", value: "/user/plant-swaps" },
     ],
-    CARETAKER: [{ label: "Manage Appointments", value: "/manage/appointments" }],
+    CARETAKER: [
+      { label: "Manage Appointments", value: "/manage/appointments" },
+    ],
   };
 
   return (
@@ -61,7 +63,7 @@ const Header = ({ inside = false }) => {
                     <Link
                       onClick={handleClick}
                       to={`${
-                        item.value !== "caretakers" ? "/collection" : ""
+                        item.collection ? "/collection" : ""
                       }/${toKebabCase(item.value)}`}
                     >
                       {item.name}

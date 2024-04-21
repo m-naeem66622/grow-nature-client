@@ -56,15 +56,23 @@ const staticData = {
   ],
   storeItems: [
     { name: "Caretakers", value: "caretakers" },
-    { name: "Cactus Plants", value: "cactus" },
-    { name: "Succulent Plants", value: "succulent" },
-    { name: "Exotic Plants", value: "exotic-plants" },
-    { name: "Best Low Light Indoor Plants", value: "special-plants" },
-    { name: "Bails and Climbers", value: "bails" },
-    { name: "Trees", value: "trees" },
-    { name: "Seeds", value: "seeds" },
-    { name: "Pots & Containers", value: "pots-&-containers" },
-    { name: "Gardening Accessories", value: "gardening-accessories" },
+    { name: "Cactus Plants", value: "cactus", collection: true },
+    { name: "Succulent Plants", value: "succulent", collection: true },
+    { name: "Exotic Plants", value: "exotic-plants", collection: true },
+    {
+      name: "Best Low Light Indoor Plants",
+      value: "special-plants",
+      collection: true,
+    },
+    { name: "Bails and Climbers", value: "bails", collection: true },
+    { name: "Trees", value: "trees", collection: true },
+    { name: "Seeds", value: "seeds", collection: true },
+    { name: "Pots & Containers", value: "pots-&-containers", collection: true },
+    {
+      name: "Gardening Accessories",
+      value: "gardening-accessories",
+      collection: true,
+    },
   ],
   plants: [
     {

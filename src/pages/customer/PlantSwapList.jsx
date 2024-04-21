@@ -190,7 +190,7 @@ const PlantSwapList = () => {
       <Container>
         <div className="flex justify-between">
           <Heading className="text-4xl font-bold mb-8 mt-4">{title}</Heading>
-          <Link to="/plant-swaps/create" className="btn btn-primary">
+          <Link to="/user/plant-swaps/create" className="btn btn-primary">
             Create Plant Swap
           </Link>
         </div>
