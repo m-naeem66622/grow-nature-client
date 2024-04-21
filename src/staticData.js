@@ -55,6 +55,7 @@ const staticData = {
     },
   ],
   storeItems: [
+    { name: "Swap Marketplace", value: "plant-swaps" },
     { name: "Caretakers", value: "caretakers" },
     { name: "Cactus Plants", value: "cactus", collection: true },
     { name: "Succulent Plants", value: "succulent", collection: true },
