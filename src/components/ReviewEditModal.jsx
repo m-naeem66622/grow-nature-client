@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { PRODUCTS_URL } from "../constans";
+import { PRODUCTS_URL, USERS_URL } from "../constans";
 import axios from "axios";
 import { notify } from "../utils/notify";
 import { toTitleCase } from "../utils/strings";
@@ -8,9 +8,11 @@ import { useEffect } from "react";
 const ReviewEditModal = ({
   modalRef,
   review,
-  product,
+  reviewTo,
+  order,
   setIsOpen,
   updateData,
+  reviewFor = "product",
 }) => {
   const {
     handleSubmit,
@@ -27,14 +29,13 @@ const ReviewEditModal = ({
   watch("rating");
 
   const onSubmitHandle = async (data) => {
-    const formattedData = {
-      order: review.order,
-      rating: data.rating,
-      comment: data.comment,
-    };
+    const formattedData = { rating: data.rating, comment: data.comment };
+    if (reviewFor === "product") formattedData.order = order;
     try {
       const response = await axios.patch(
-        `${PRODUCTS_URL}/${product._id}/review`,
+        `${reviewFor === "product" ? PRODUCTS_URL : USERS_URL}/${
+          reviewTo._id
+        }/review`,
         formattedData,
         {
           headers: {
@@ -43,7 +44,7 @@ const ReviewEditModal = ({
         }
       );
       reset();
-      updateData(response.data.data, product.index, review.index);
+      updateData(response.data.data, review.index, reviewTo.index);
       notify("success", response.data.message);
       setIsOpen(false);
     } catch (error) {

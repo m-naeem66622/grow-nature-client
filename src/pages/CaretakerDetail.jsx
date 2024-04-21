@@ -7,30 +7,60 @@ import { formatTime } from "../utils/strings";
 import { USERS_URL } from "../constans";
 import { notify } from "../utils/notify";
 import AppointmentAddModal from "../components/AppointmentAddModal";
+import ReviewAddModal from "../components/ReviewAddModal";
+import ReviewEditModal from "../components/ReviewEditModal";
+import Heading from "../components/Heading";
 
 const CaretakerDetail = () => {
   const { _id } = useParams();
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const modalRef = useRef();
+  const addAppointmentModalRef = useRef();
+  const addReviewModalRef = useRef();
+  const editReviewModalRef = useRef();
+  const [review, setReview] = useState({});
+  const [isOpen, setIsOpen] = useState(false);
 
   const userInfo = useSelector((state) => state.auth.userInfo);
 
   const fetchProfile = async () => {
     try {
       const response = await axios.get(`${USERS_URL}/profile/caretaker/${_id}`);
-      // console.log(response.data);
       setData(response.data.data);
       setLoading(false);
     } catch (error) {
       console.log("Error while fetching profile:", error);
-      if (!error.response) setError({ code: error.code, message: error.message });
+      if (!error.response)
+        setError({ code: error.code, message: error.message });
       else setError({ ...error.response.data, code: error.response.status });
       setLoading(false);
       notify("error", "Error while fetching profile");
     }
   };
+
+  const updateExistingData = (updatedData, reviewIndex) => {
+    setData((prevData) => {
+      const newData = JSON.parse(JSON.stringify(prevData));
+      if (reviewIndex === null || reviewIndex === undefined) {
+        newData.reviews.push(updatedData);
+        return newData;
+      }
+      newData.reviews[reviewIndex] = updatedData;
+      return newData;
+    });
+  };
+
+  useEffect(() => {
+    if (isOpen) {
+      editReviewModalRef.current.showModal();
+    }
+
+    if (!editReviewModalRef.current) {
+      setIsOpen(false);
+      setReview({});
+    }
+  }, [isOpen, editReviewModalRef]);
 
   useEffect(() => {
     fetchProfile();
@@ -61,8 +91,25 @@ const CaretakerDetail = () => {
     <>
       <AppointmentAddModal
         caretaker={{ _id: data._id, services: data.services }}
-        modalRef={modalRef}
+        modalRef={addAppointmentModalRef}
       />
+      <ReviewAddModal
+        modalRef={addReviewModalRef}
+        reviewTo={{ _id: data._id }}
+        reviewFrom={userInfo._id}
+        updateData={updateExistingData}
+        reviewFor="caretaker"
+      />
+      {isOpen && (
+        <ReviewEditModal
+          modalRef={editReviewModalRef}
+          review={review}
+          reviewTo={{ _id: data._id }}
+          setIsOpen={setIsOpen}
+          updateData={updateExistingData}
+          reviewFor="caretaker"
+        />
+      )}
       <Container className="">
         <div className="max-w-4xl py-6 mx-auto rounded-lg shadow-md overflow-hidden">
           <div className="px-8 mb-4">
@@ -118,12 +165,43 @@ const CaretakerDetail = () => {
           </div>
           <div className="px-8">
             {userInfo ? (
-              <button
-                className="btn btn-primary"
-                onClick={() => modalRef.current.showModal()}
-              >
-                Book Appointment
-              </button>
+              <div className="flex gap-x-2">
+                <button
+                  className="btn btn-primary"
+                  onClick={() => addAppointmentModalRef.current.showModal()}
+                >
+                  Book Appointment
+                </button>
+                {(() => {
+                  const reviewIndex = data.reviews.findIndex(
+                    (rev) => rev.user._id === userInfo._id
+                  );
+
+                  return reviewIndex >= 0 ? (
+                    <button
+                      className="btn btn-primary w-fit"
+                      onClick={() => {
+                        setReview({
+                          ...data.reviews[reviewIndex],
+                          index: reviewIndex,
+                        });
+                        setIsOpen(true);
+                      }}
+                    >
+                      Edit Review
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-primary w-fit"
+                      onClick={() => {
+                        addReviewModalRef.current.showModal();
+                      }}
+                    >
+                      Give Review
+                    </button>
+                  );
+                })()}
+              </div>
             ) : (
               <>
                 <p className="">
@@ -135,6 +213,54 @@ const CaretakerDetail = () => {
               </>
             )}
           </div>
+        </div>
+        <div className="max-w-4xl mx-auto mt-8">
+          <Heading level={2} className="text-center">
+            Hear from our users
+          </Heading>
+          {data.reviews.length > 0 ? (
+            data.reviews.map((review) => (
+              <div
+                key={review.id}
+                className="shadow-lg p-4 mb-4 rounded-lg flex items-start"
+              >
+                <img
+                  src={`https://gravatar.com/avatar?s=200&d=mp`}
+                  alt={`${review.user.firstName} ${review.user.lastName}`}
+                  className="w-10 h-10 rounded-full mr-4"
+                />
+                <div>
+                  <h3 className="text-lg font-medium">
+                    {review.user.firstName} {review.user.lastName}
+                  </h3>
+                  <p className="text-sm text-gray-500">{review.user.email}</p>
+                  <div className="flex items-center mt-2">
+                    {Array.from({ length: 5 }).map((_, index) => (
+                      <i
+                        key={index}
+                        className={`fa fa-star ${
+                          index < review.rating
+                            ? "text-yellow-500"
+                            : "text-gray-400"
+                        }`}
+                      ></i>
+                    ))}
+                    <span className="ml-2 text-gray-600">
+                      {review.rating} out of 5
+                    </span>
+                  </div>
+                  <p className="mt-2">{review.comment}</p>
+                  <p className="mt-2 text-sm text-gray-500">
+                    Reviewed on{" "}
+                    {new Date(review.updatedAt).toLocaleDateString()}{" "}
+                    {review.createdAt !== review.updatedAt ? "(Edited)" : ""}
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="text-center">No reviews yet for this product.</p>
+          )}
         </div>
       </Container>
     </>

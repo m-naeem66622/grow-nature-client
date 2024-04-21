@@ -1,10 +1,16 @@
 import { useForm } from "react-hook-form";
-import { PRODUCTS_URL } from "../constans";
+import { PRODUCTS_URL, USERS_URL } from "../constans";
 import axios from "axios";
 import { notify } from "../utils/notify";
 import { toTitleCase } from "../utils/strings";
 
-const ReviewAddModal = ({ modalRef, order, product }) => {
+const ReviewAddModal = ({
+  modalRef,
+  order,
+  reviewTo,
+  reviewFor = "product",
+  updateData,
+}) => {
   const {
     handleSubmit,
     register,
@@ -15,15 +21,18 @@ const ReviewAddModal = ({ modalRef, order, product }) => {
     setError,
     clearErrors,
     reset,
-  } = useForm({ defaultValues: { order, rating: "", comment: "" } });
+  } = useForm({ defaultValues: { rating: "", comment: "" } });
 
   watch("rating");
 
   const onSubmitHandle = async (data) => {
     const formattedData = { ...data };
+    if (reviewFor === "product") formattedData.order = order;
     try {
       const response = await axios.post(
-        `${PRODUCTS_URL}/${product}/review`,
+        `${reviewFor === "product" ? PRODUCTS_URL : USERS_URL}/${
+          reviewTo._id
+        }/review`,
         formattedData,
         {
           headers: {
@@ -32,6 +41,7 @@ const ReviewAddModal = ({ modalRef, order, product }) => {
         }
       );
       reset();
+      updateData(response.data.data, null, reviewTo.index);
       modalRef.current.close();
       notify("success", response.data.message);
     } catch (error) {

@@ -41,10 +41,15 @@ const OrderDetail = () => {
     setLoading(false);
   };
 
-  const updateExistingData = (updatedData, product, review) => {
+  const updateExistingData = (updatedData, reviewIndex, productIndex) => {
     setData((prevData) => {
       const newData = JSON.parse(JSON.stringify(prevData));
-      newData.orderItems[product].product.reviews[review] = updatedData;
+      if (reviewIndex === null || reviewIndex === undefined) {
+        newData.orderItems[productIndex].product.reviews.push(updatedData);
+        return newData;
+      }
+      newData.orderItems[productIndex].product.reviews[reviewIndex] =
+        updatedData;
       return newData;
     });
   };
@@ -91,13 +96,15 @@ const OrderDetail = () => {
       <ReviewAddModal
         modalRef={addModalRef}
         order={data._id}
-        product={product}
+        reviewTo={product}
+        updateData={updateExistingData}
       />
       {isOpen && (
         <ReviewEditModal
           modalRef={editModalRef}
           review={review}
-          product={product}
+          reviewTo={product}
+          order={data._id}
           setIsOpen={setIsOpen}
           updateData={updateExistingData}
         />
@@ -187,7 +194,10 @@ const OrderDetail = () => {
                         <button
                           className="btn btn-primary w-fit"
                           onClick={() => {
-                            setProduct(item.product._id);
+                            setProduct({
+                              _id: item.product._id,
+                              index: itemIndex,
+                            });
                             addModalRef.current.showModal();
                           }}
                         >
