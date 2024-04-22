@@ -31,9 +31,12 @@ const ProductList = () => {
       ? staticData.collections.find(
           (elem) => elem.value.join(",") === params.collectionName
         ).name
-      : staticData.storeItems.find(
-          (elem) => elem.value === params.collectionName
-        ).name
+      : staticData.storeItems.find((elem) => {
+          // elem.value === params.collectionName
+          return elem.dynamic
+            ? elem.func() === params.collectionName
+            : elem.value === params.collectionName;
+        }).name
     : params.categoryName
         ?.split(",")
         .filter(Boolean)

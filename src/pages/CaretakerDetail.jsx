@@ -120,22 +120,22 @@ const CaretakerDetail = () => {
             <p className="mt-2">{data.bio}</p>
             <div className="mt-4">
               <p className="">
-                <strong>Email:</strong> {data.email}
-                <br />
-                <strong>Phone:</strong> {data.phoneNumber}
-                <br />
-                <strong>Location:</strong>{" "}
-                {`${data.address.city}, ${data.address.state}, ${data.address.country}`}
+                <div className="flex items-center">
+                  <i className="fa-solid fa-envelope text-lg"></i>
+                  <p className="text-base ml-2">{data.email}</p>
+                </div>
+                <div className="flex items-center">
+                  <i className="fa-solid fa-phone text-lg"></i>
+                  <p className="text-base ml-2">{data.phoneNumber}</p>
+                </div>
+                <div className="flex items-center">
+                  <i className="fa-solid fa-location-dot text-lg"></i>
+                  <p className="text-base ml-2">{`${data.address.city}, ${data.address.state}, ${data.address.country}`}</p>
+                </div>
               </p>
             </div>
             <div className="mt-4 flex items-center">
-              <svg
-                className="fill-current h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-              >
-                <path d="M12 0C7.7 0 4 3.7 4 8c0 4.3 8 16 8 16s8-11.7 8-16c0-4.3-3.7-8-8-8zm0 11.5c-1.6 0-3-1.4-3-3s1.4-3 3-3 3 1.4 3 3-1.4 3-3 3z" />
-              </svg>
+              <i className="fa fa-star text-yellow-500"></i>
               <p className="text-base ml-2">{data.speciality}</p>
             </div>
           </div>
@@ -145,7 +145,7 @@ const CaretakerDetail = () => {
               {data.pricing.map((service) => (
                 <li key={service._id} className="flex justify-between py-2">
                   <span className="">{service.service}</span>
-                  <span className="">Price: ${service.price}</span>
+                  <span className="">Price: Rs{service.price}</span>
                 </li>
               ))}
             </ul>

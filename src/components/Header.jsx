@@ -59,12 +59,17 @@ const Header = ({ inside = false }) => {
               <summary>Store</summary>
               <ul className="p-2 bg-base-100 rounded-t-none w-max">
                 {staticData.storeItems.map((item) => (
-                  <li onClick={handleClick} key={item.value}>
+                  <li
+                    onClick={handleClick}
+                    key={item.dynamic ? item.func() : item.value}
+                  >
                     <Link
                       onClick={handleClick}
                       to={`${
                         item.collection ? "/collection" : ""
-                      }/${toKebabCase(item.value)}`}
+                      }/${toKebabCase(
+                        item.dynamic ? item.func() : item.value
+                      )}`}
                     >
                       {item.name}
                     </Link>

@@ -1,3 +1,5 @@
+import { getSeason } from "./utils/getSeason";
+
 const staticData = {
   services: [
     {
@@ -55,6 +57,7 @@ const staticData = {
     },
   ],
   storeItems: [
+    { name: "Search", value: "search" },
     { name: "Swap Marketplace", value: "plant-swaps" },
     { name: "Caretakers", value: "caretakers" },
     { name: "Cactus Plants", value: "cactus", collection: true },
@@ -65,8 +68,7 @@ const staticData = {
       value: "special-plants",
       collection: true,
     },
-    { name: "Bails and Climbers", value: "bails", collection: true },
-    { name: "Trees", value: "trees", collection: true },
+    { name: "Seasonal Plants", collection: true, dynamic: true, func: getSeason },
     { name: "Seeds", value: "seeds", collection: true },
     { name: "Pots & Containers", value: "pots-&-containers", collection: true },
     {
