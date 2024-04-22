@@ -114,7 +114,11 @@ const CaretakerDetail = () => {
         <div className="max-w-4xl py-6 mx-auto rounded-lg shadow-md overflow-hidden">
           <div className="px-8 mb-4">
             <div className="">
-              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{`${data.role} Profile`}</div>
+              <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{`${
+                userInfo.speciality === "Plant Health Monitoring"
+                  ? "Plant Pythologist"
+                  : userInfo.role
+              } Profile`}</div>
               <h2 className="block mt-1 text-lg leading-tight font-medium">{`${data.firstName} ${data.lastName}`}</h2>
             </div>
             <p className="mt-2">{data.bio}</p>

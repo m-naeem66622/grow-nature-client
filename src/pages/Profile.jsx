@@ -16,7 +16,11 @@ const Profile = () => {
           />
         </figure>
         <div className="card-body">
-          <div className="badge badge-lg badge-success mx-auto">{userInfo.role}</div>
+          <div className="badge badge-lg badge-success mx-auto">
+            {userInfo.speciality === "Plant Health Monitoring"
+              ? "Plant Pythologist"
+              : userInfo.role}
+          </div>
           <div className="flex flex-col items-center">
             <h2 className="card-title">
               {userInfo.firstName} {userInfo.lastName}
