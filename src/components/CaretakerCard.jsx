@@ -23,7 +23,7 @@ const CaretakerCard = ({ data, className = "" }) => {
           {data.speciality}
         </div>
         <div className="card-actions justify-end">
-          <Link to={`/caretaker/${data._id}`} className="btn btn-primary">
+          <Link to={`/service/${data._id}`} className="btn btn-primary">
             View Profile
           </Link>
         </div>

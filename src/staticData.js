@@ -1,4 +1,7 @@
 import { getSeason } from "./utils/getSeason";
+import Member_1 from "./assets/member_1.png";
+import Member_2 from "./assets/member_2.png";
+import Member_3 from "./assets/member_3.png";
 
 const staticData = {
   services: [
@@ -58,7 +61,7 @@ const staticData = {
   ],
   storeItems: [
     { name: "Swap Marketplace", value: "plant-swaps" },
-    { name: "Caretakers", value: "caretakers" },
+    { name: "Services", value: "services" },
     { name: "Cactus Plants", value: "cactus", collection: true },
     { name: "Succulent Plants", value: "succulent", collection: true },
     { name: "Exotic Plants", value: "exotic-plants", collection: true },
@@ -210,6 +213,52 @@ const staticData = {
       longDesc: `Brain cactus is a grafted mammillaria pilcayencis cristata on the rooting stock of mostly a dragon fruit cactus. It forms curves with age which looks like a brain after a few years of age. The graft is available in white and yellow color but the white one is most wanted.\nBrain cactus, also known as Mammillaria elongata, is a small, slow-growing cactus native to the arid regions of Mexico. It is a popular plant for cultivation, particularly among cactus enthusiasts, due to its unique appearance and easy care requirements.\nThe brain cactus is characterized by its spherical, brain-like stems, which can grow up to 3 inches in diameter. These stems are typically a pale green or blue-green color, with a smooth, waxy surface, and have small, white spines arranged in a spiral pattern. The plant has a short, central taproot, and does not have any visible ribs or tubercles. In the spring and summer months, the brain cactus produces small, pink or purple flowers that bloom from the plant's apex, or top.\nOne of the most appealing aspects of the brain cactus is its low maintenance requirements. It is well-suited to life in a pot, and can be grown indoors or outdoors in a sunny location. The plant is drought-tolerant, and does not require frequent watering. When watering, it is important to allow the soil to dry out completely before watering again, as the brain cactus is susceptible to root rot. The plant also benefits from being fertilized once a month during the growing season, using a cactus-specific fertilizer.\nIn terms of care, the brain cactus is a relatively low-maintenance plant. It is resistant to pests and diseases, and does not require pruning. The plant's spines can be trimmed if desired, using a pair of sharp scissors or pruning shears. The plant can be repotted as needed, typically every 2-3 years, using a well-draining cactus potting soil.\nIn conclusion, the Mammillaria elongata, or brain cactus, is a unique and easy-to-care-for plant that is well-suited to life in a pot. Its spherical stems and small, spiky spines give it a distinctive appearance that is sure to stand out in any cactus collection. With proper care, including proper watering, fertilization, and occasional repotting, the brain cactus can thrive and bring beauty to any space. It is a slow-growing plant, and can take several years to reach its full size.\nPerfect for your table decor. Care needed for the provision of water and light. Growth depends on the atmosphere, nature and weather.`,
     },
   ],
+  offerings: [
+    {
+      src: "https://images.unsplash.com/photo-1687089331133-d6cc89156880?w=450",
+      title: "Variety of Plants",
+      description:
+        "Explore a wide range of plants suitable for different environments and preferences.",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1709532390940-5c09fcdf098d?w=450",
+      title: "Fertilizers",
+      description:
+        "High-quality fertilizers to help your plants thrive and grow healthy.",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1526381805515-3fec2d69e7cc?w=450",
+      title: "Gardening Accessories",
+      description:
+        "Essential gardening tools and accessories for all your gardening needs.",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1657664058691-2633847111c4?w=450",
+      title: "Gardening Services",
+      description:
+        "Book appointments with professional caretakers and provide feedback on their services.",
+    },
+  ],
+  team: [
+    {
+      name: "Samar Fatima Butt",
+      image: Member_1,
+      role: "Software Requirement Engineer",
+      bio: "Samar ensures all project specifications are clear and precise, making her an invaluable asset to the team."
+    },
+    {
+      name: "Muhammad Shaharyar",
+      image: Member_2,
+      role: "Software Developer",
+      bio: "Muhammad builds robust and scalable applications, tackling complex challenges with innovative solutions."
+    },
+    {
+      name: "Uzair Kaira",
+      image: Member_3,
+      role: "UI/UX Designer",
+      bio: "Uzair creates intuitive and visually appealing designs, ensuring our applications are functional and enjoyable."
+    }
+  ]
 };
 
 export const statusColorMap = {

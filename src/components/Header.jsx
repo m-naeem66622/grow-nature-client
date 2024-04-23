@@ -82,7 +82,7 @@ const Header = ({ inside = false }) => {
             <Link to="/">Special Offers</Link>
           </li>
           <li>
-            <Link to="/">About Us</Link>
+            <Link to="/about-us">About Us</Link>
           </li>
           <li>
             <Link className="text-lg" to="/search">

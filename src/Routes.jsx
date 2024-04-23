@@ -25,11 +25,13 @@ import UserOrderList from "./pages/admin/OrderList";
 import OrderDetail from "./pages/private/OrderDetail";
 import Search from "./pages/Search";
 import Checkout from "./pages/customer/Checkout";
+import AboutUs from "./pages/AboutUs";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
-  { path: "/caretakers", element: <CaretakerList /> },
-  { path: "/caretaker/:_id", element: <CaretakerDetail /> },
+  { path: "/about-us", element: <AboutUs />},
+  { path: "/services", element: <CaretakerList /> },
+  { path: "/service/:_id", element: <CaretakerDetail /> },
   { path: "/plant-swaps", element: <PlantSwapList /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },

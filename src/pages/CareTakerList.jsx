@@ -17,7 +17,7 @@ const CaretakerList = () => {
   const page = searchParams.get("page") || 1;
   const limit = searchParams.get("limit") || 12;
 
-  const title = "Caretaker Profiles";
+  const title = "Services Profiles";
 
   const fetchUsers = async () => {
     const query = queryParser({ page, limit });

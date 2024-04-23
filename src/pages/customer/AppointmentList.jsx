@@ -241,7 +241,7 @@ const AppointmentList = () => {
                       Caretaker:{" "}
                       <Link
                         className="link"
-                        to={`/caretaker/${appointment.caretaker._id}`}
+                        to={`/service/${appointment.caretaker._id}`}
                       >
                         {appointment.caretaker.firstName}{" "}
                         {appointment.caretaker.lastName}
