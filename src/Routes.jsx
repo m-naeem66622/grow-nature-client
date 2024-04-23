@@ -23,6 +23,7 @@ import ProfileDetail from "./pages/admin/ProfileDetail";
 import CustomerOrderList from "./pages/customer/OrderList";
 import UserOrderList from "./pages/admin/OrderList";
 import OrderDetail from "./pages/private/OrderDetail";
+import Search from "./pages/Search";
 import Checkout from "./pages/customer/Checkout";
 
 export const publicRoutes = [
@@ -38,6 +39,7 @@ export const publicRoutes = [
   { path: "/category/:categoryName", element: <ProductList /> },
   { path: "/cart", element: <Cart /> },
   { path: "*", element: <Page404 /> },
+  { path: "/search", element: <Search /> },
 ];
 
 export const protectedRoutes = [{ path: "/profile", element: <Profile /> }];

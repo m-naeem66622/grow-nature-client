@@ -84,6 +84,11 @@ const Header = ({ inside = false }) => {
           <li>
             <Link to="/">About Us</Link>
           </li>
+          <li>
+            <Link className="text-lg" to="/search">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </Link>
+          </li>
         </ul>
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
