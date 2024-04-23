@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Container from "../../components/Container";
 import Heading from "../../components/Heading";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { clearCartItems, savePaymentMethod } from "../../slices/cartSlice";
 import { notify } from "../../utils/notify";
 import { ORDERS_URL } from "../../constans";
 import Page404 from "../Page404";
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userInfo = useSelector((state) => state.auth.userInfo);
@@ -62,6 +63,7 @@ const Checkout = () => {
       notify("success", response.data.message);
 
       if (cart.paymentMethod === "COD") {
+        navigate("/products");
         dispatch(clearCartItems()); // Dispatch action to clear cart items
         return;
       } // If COD then no need to redirect
@@ -224,6 +226,19 @@ const Checkout = () => {
                   </button>
                 </th>
               </tr>
+              {cart.paymentMethod === "ONLINE" && (
+                <tr>
+                  <th></th>
+                  <th></th>
+                  <td colSpan={2} className="max-w-40">
+                    <p className="text-blue-600 text-sm text-wrap">
+                      Please note: When you click &quot;Place Order&quot;, your
+                      order will be placed and you will then be redirected to
+                      the payment page to complete your purchase.
+                    </p>
+                  </td>
+                </tr>
+              )}
               <tr>
                 <th></th>
                 <th></th>

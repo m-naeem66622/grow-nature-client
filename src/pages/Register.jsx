@@ -51,7 +51,7 @@ function Register() {
 
   const onSubmitHandle = async (data) => {
     const formattedData = isCaretaker
-      ? {...data, role: "CARETAKER"}
+      ? { ...data, role: "CARETAKER" }
       : {
           firstName: data.firstName,
           lastName: data.lastName,
@@ -505,8 +505,8 @@ function Register() {
                     className="join-item btn"
                     onClick={(e) => {
                       if (
-                        !fields.pricing.service.trim() ||
-                        !fields.pricing.price.trim()
+                        !fields.pricing.service?.trim() ||
+                        !fields.pricing.price?.trim()
                       )
                         return;
                       const newPricing = [
@@ -532,9 +532,20 @@ function Register() {
                   {getValues("pricing").map((price, index) => (
                     <div key={index} className="join-item flex w-full">
                       <span className="border border-1 border-r-0 p-2 w-full text-sm">
-                        {price.service}: ${price.price}
+                        {price.service}: Rs{price.price}
                       </span>
-                      <button type="button" className="border border-1 p-2">
+                      <button
+                        type="button"
+                        className="border border-1 p-2"
+                        onClick={() => {
+                          const newPricing = getValues("pricing").filter(
+                            (item) =>
+                              item.service !== price.service &&
+                              item.price !== price.price
+                          );
+                          setValue("pricing", newPricing);
+                        }}
+                      >
                         <span className="p-2 text-error">
                           <i className="fa-solid fa-xmark"></i>
                         </span>

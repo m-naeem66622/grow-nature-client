@@ -86,7 +86,7 @@ function Login() {
               {...register("password", {
                 required: true,
                 minLength: 8,
-                validate: Validate.password,
+                // validate: Validate.password,
               })}
             />
             <div className="label">

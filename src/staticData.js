@@ -62,6 +62,7 @@ const staticData = {
   storeItems: [
     { name: "Swap Marketplace", value: "plant-swaps" },
     { name: "Services", value: "services" },
+    { name: "Fertilizers", value: "fertilizers", collection: true },
     { name: "Cactus Plants", value: "cactus", collection: true },
     { name: "Succulent Plants", value: "succulent", collection: true },
     { name: "Exotic Plants", value: "exotic-plants", collection: true },
