@@ -1,46 +1,14 @@
 import Container from "../components/Container";
 import Heading from "../components/Heading";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { clearCartItems, removeFromCart } from "../slices/cartSlice";
-import { notify } from "../utils/notify";
-import { ORDERS_URL } from "../constans";
+import { Link, useNavigate } from "react-router-dom";
+import { checkout, removeFromCart } from "../slices/cartSlice";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
   const userInfo = useSelector((state) => state.auth.userInfo);
-
-  const handleCheckout = async () => {
-    const body = {
-      orderItems: cart.cartItems.map((item) => ({
-        product: item._id,
-        quantity: item.quantity,
-        price: item.price,
-      })),
-      itemsPrice: cart.itemsPrice,
-      taxPrice: cart.taxPrice,
-      shippingPrice: cart.shippingPrice,
-      totalPrice: cart.totalPrice,
-    };
-
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-    };
-
-    try {
-      const response = await axios.post(`${ORDERS_URL}/`, body, {
-        headers,
-      });
-      notify("success", response.data.message);
-      dispatch(clearCartItems()); // Dispatch action to clear cart items
-    } catch (error) {
-      console.log("Error placing order:", error.response);
-      notify("error", "Something went wrong. Please try again");
-    }
-  };
 
   if (cart.cartItems.length === 0) {
     return (
@@ -149,7 +117,10 @@ const Cart = () => {
                 {userInfo ? (
                   <button
                     className="btn btn-primary btn-wide"
-                    onClick={handleCheckout}
+                    onClick={() => {
+                      dispatch(checkout(true));
+                      navigate("/checkout");
+                    }}
                   >
                     Checkout
                   </button>

@@ -118,6 +118,9 @@ const OrderDetail = () => {
               <p className=" text-gray-500">
                 Placed At: {new Date(data.placedAt).toLocaleString()}
               </p>
+              <p className="text-gray-500">
+                Payment Method: {data.paymentMethod}
+              </p>
             </div>
             <div>
               <div className={`badge badge-lg ${statusColorMap[data.status]}`}>

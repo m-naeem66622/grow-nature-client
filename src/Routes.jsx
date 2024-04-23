@@ -23,6 +23,7 @@ import ProfileDetail from "./pages/admin/ProfileDetail";
 import CustomerOrderList from "./pages/customer/OrderList";
 import UserOrderList from "./pages/admin/OrderList";
 import OrderDetail from "./pages/private/OrderDetail";
+import Checkout from "./pages/customer/Checkout";
 
 export const publicRoutes = [
   { path: "/", element: <Home /> },
@@ -42,6 +43,7 @@ export const publicRoutes = [
 export const protectedRoutes = [{ path: "/profile", element: <Profile /> }];
 
 export const buyerRoutes = [
+  { path: "/checkout", element: <Checkout />},
   { path: "/user/orders", element: <CustomerOrderList /> },
   { path: "/user/order/:_id", element: <OrderDetail /> },
   { path: "/user/appointments", element: <CustomerAppointmentList /> },
