@@ -52,9 +52,11 @@ const AddProduct = () => {
     formData.append("longDesc", data.longDesc);
     formData.append("price[amount]", data.price.amount);
     formData.append("price[currency]", data.price.currency);
-    formData.append("potSize[size]", data.potSize.size);
-    formData.append("potSize[unit]", data.potSize.unit);
-    formData.append("potType", data.potType);
+    if (data.potSize.size > 0) {
+      formData.append("potSize[size]", data.potSize.size);
+      formData.append("potSize[unit]", data.potSize.unit);
+    }
+    data.potType?.trim() && formData.append("potType", data.potType);
 
     try {
       const response = await axios.post(PRODUCTS_URL, formData, {
@@ -216,9 +218,7 @@ const AddProduct = () => {
               <input
                 type="text"
                 className="input input-bordered w-full input-md"
-                {...register("potType", {
-                  required: "Pot type is required",
-                })}
+                {...register("potType")}
               />
               <div className="label">
                 <span className="label-text-alt text-error">
@@ -229,19 +229,15 @@ const AddProduct = () => {
 
             <label className="form-control w-full sm:w-1/3">
               <div className="label">
-                <span className="label-text">Pot Size</span>
+                <span className="label-text">
+                  Pot Size (If not applicable leave it as 0)
+                </span>
               </div>
               <div className="join join-horizontal items-center">
                 <input
                   type="number"
                   className="input input-bordered w-full input-md join-item"
-                  {...register("potSize.size", {
-                    required: "Pot size is required",
-                    min: {
-                      value: 1,
-                      message: "Pot size must be positive number",
-                    },
-                  })}
+                  {...register("potSize.size")}
                 />
                 <div className="join-item btn btn-bordered">
                   {toTitleCase(getValues("potSize.unit"))}

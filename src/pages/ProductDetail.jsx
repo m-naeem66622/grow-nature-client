@@ -114,7 +114,7 @@ const ProductDetail = () => {
           <p className="text-gray-600 mb-2 lg:text-lg">
             {data.price.currency} {data.price.amount}
           </p>
-          <p className="text-gray-800 mb-4">{data.description}</p>
+          <p className="text-gray-800 mb-4">{data.shortDesc}</p>
 
           {/* Categories */}
           <div className="mb-4">
@@ -123,15 +123,19 @@ const ProductDetail = () => {
           </div>
 
           {/* Pot Size */}
-          <div className="mb-4">
-            <span className="font-semibold">Pot Size:</span> {data.potSize.size}{" "}
-            {data.potSize.unit}
-          </div>
+          {data.potSize && (
+            <div className="mb-4">
+              <span className="font-semibold">Pot Size:</span>{" "}
+              {data.potSize.size} {data.potSize.unit}
+            </div>
+          )}
 
           {/* Pot Type */}
-          <div className="mb-4">
-            <span className="font-semibold">Pot Type:</span> {data.potType}
-          </div>
+          {data.potType && (
+            <div className="mb-4">
+              <span className="font-semibold">Pot Type:</span> {data.potType}
+            </div>
+          )}
 
           <div className="mb-4">
             <div className="join join-vertical lg:join-horizontal">
