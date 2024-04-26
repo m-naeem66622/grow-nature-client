@@ -9,6 +9,8 @@ import Heading from "../../components/Heading";
 import { toTitleCase } from "../../utils/strings";
 import { PRODUCTS_URL } from "../../constans";
 import { notify } from "../../utils/notify";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const defaultValues = {
   src: [],
@@ -299,11 +301,21 @@ const AddProduct = () => {
             <div className="label">
               <span className="label-text">Long Description</span>
             </div>
-            <textarea
-              className="textarea textarea-bordered w-full textarea-md"
-              {...register("longDesc", {
+            <Controller
+              name="longDesc"
+              control={control}
+              defaultValue=""
+              rules={{
                 required: "Long description is required",
-              })}
+              }}
+              render={({ field }) => (
+                <ReactQuill
+                  {...field}
+                  onChange={(newValue) => field.onChange(newValue)}
+                  value={field.value}
+                  theme="snow"
+                />
+              )}
             />
             <div className="label">
               <span className="label-text-alt text-error">

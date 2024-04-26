@@ -7,6 +7,8 @@ import Heading from "../components/Heading";
 import { addToCart, removeFromCart } from "../slices/cartSlice";
 import { notify } from "../utils/notify";
 import { BASE_URL, PRODUCTS_URL } from "../constans";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.bubble.css";
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
@@ -214,7 +216,7 @@ const ProductDetail = () => {
       <div
         className={`tab-content ${activeTab === "description" ? "block" : ""}`}
       >
-        <p>{data.longDesc}</p>
+        <ReactQuill value={data.longDesc} readOnly={true} theme="bubble" />
       </div>
       <div className={`tab-content ${activeTab === "reviews" ? "block" : ""}`}>
         {data.reviews.length > 0 ? (
