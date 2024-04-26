@@ -90,7 +90,7 @@ const CaretakerDetail = () => {
   return (
     <>
       <AppointmentAddModal
-        caretaker={{ _id: data._id, services: data.services }}
+        caretaker={{ _id: data._id, services: data.pricing }}
         modalRef={addAppointmentModalRef}
       />
       <ReviewAddModal
@@ -115,9 +115,9 @@ const CaretakerDetail = () => {
           <div className="px-8 mb-4">
             <div className="">
               <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">{`${
-                userInfo.speciality === "Plant Health Monitoring"
+                data.speciality === "Plant Health Monitoring"
                   ? "Plant Pythologist"
-                  : userInfo.role
+                  : data.role
               } Profile`}</div>
               <h2 className="block mt-1 text-lg leading-tight font-medium">{`${data.firstName} ${data.lastName}`}</h2>
             </div>
