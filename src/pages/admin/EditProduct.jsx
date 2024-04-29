@@ -61,9 +61,11 @@ const EditProduct = () => {
     formData.append("longDesc", data.longDesc);
     formData.append("price[amount]", data.price.amount);
     formData.append("price[currency]", data.price.currency);
-    formData.append("potSize[size]", data.potSize.size);
-    formData.append("potSize[unit]", data.potSize.unit);
-    formData.append("potType", data.potType);
+    if (data.potSize?.size && data.potSize.size > 0) {
+      formData.append("potSize[size]", data.potSize.size);
+      formData.append("potSize[unit]", data.potSize.unit);
+    }
+    data.potType?.trim() && formData.append("potType", data.potType);
 
     try {
       const response = await axios.put(`${PRODUCTS_URL}/${_id}`, formData, {
@@ -125,8 +127,15 @@ const EditProduct = () => {
       setValue("shortDesc", response.data.shortDesc);
       setValue("price.amount", response.data.price.amount);
       setValue("price.currency", response.data.price.currency);
-      setValue("potSize.size", response.data.potSize?.size);
-      setValue("potSize.unit", response.data.potSize?.unit);
+
+      if (response.data.potSize) {
+        setValue("potSize.size", response.data.potSize.size);
+        setValue("potSize.unit", response.data.potSize.unit);
+      } else {
+        setValue("potSize.size", 0);
+        setValue("potSize.unit", "inches");
+      }
+
       setValue("potType", response.data.potType);
       setValue("longDesc", response.data.longDesc);
       setLoading(false);
@@ -320,9 +329,7 @@ const EditProduct = () => {
               <input
                 type="text"
                 className="input input-bordered w-full input-md"
-                {...register("potType", {
-                  required: "Pot type is required",
-                })}
+                {...register("potType")}
               />
               <div className="label">
                 <span className="label-text-alt text-error">
@@ -333,19 +340,15 @@ const EditProduct = () => {
 
             <label className="form-control w-full sm:w-1/3">
               <div className="label">
-                <span className="label-text">Pot Size</span>
+                <span className="label-text">
+                  Pot Size (If not applicable leave it as 0)
+                </span>
               </div>
               <div className="join join-horizontal items-center">
                 <input
                   type="number"
                   className="input input-bordered w-full input-md join-item"
-                  {...register("potSize.size", {
-                    required: "Pot size is required",
-                    min: {
-                      value: 1,
-                      message: "Pot size must be positive number",
-                    },
-                  })}
+                  {...register("potSize.size")}
                 />
                 <div className="join-item btn btn-bordered">
                   {toTitleCase(getValues("potSize.unit"))}
