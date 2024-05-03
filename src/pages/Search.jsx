@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Container from "../components/Container";
 import Heading from "../components/Heading";
 import axios from "axios";
@@ -6,11 +6,12 @@ import { useSearchParams } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { queryParser } from "../utils/queryParser";
 import { notify } from "../utils/notify";
-import { PRODUCTS_URL } from "../constans";
-import ComingSoon from "./ComingSoon";
+import { IMAGE_RECOGNITION_URL, PRODUCTS_URL } from "../constans";
 
 const Search = () => {
-  const [searchBy, setSearchBy] = useState("text");
+  const formRef = useRef(null);
+  const [searchBy, setSearchBy] = useState("image");
+  const [imageFile, setImageFile] = useState(null);
   const [pagination, setPagination] = useState({});
   const [searchText, setSearchText] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,6 +43,37 @@ const Search = () => {
       console.error("Error while fetching products:", error);
       setError({ ...error.response.data, code: error.response.status });
       notify("error", "Error while fetching products");
+    }
+    setLoading(false);
+  };
+
+  const handleSearchByImage = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setSearchActive(true);
+    const formData = new FormData(formRef.current);
+
+    const query = queryParser({ name: true, similar: true, size: "s" });
+
+    console.log("formData", formData.get("image"));
+
+    try {
+      const response = await axios.post(
+        `${IMAGE_RECOGNITION_URL}/upload?${query}`,
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
+      console.log("response", response.data);
+
+      setData(response.data);
+    } catch (error) {
+      console.error("Error while fetching similar images:", error);
+      if (!error.response) {
+        notify("error", "The server is not responding");
+      } else {
+        notify("error", error.response.data.error);
+      }
     }
     setLoading(false);
   };
@@ -133,36 +165,93 @@ const Search = () => {
               </label>
             </form>
           ) : (
-            <ComingSoon />
+            <>
+              <label className="form-control w-full join-item">
+                <div className="label">
+                  <span className="label-text">Search by image</span>
+                </div>
+                <form
+                  ref={formRef}
+                  className="join"
+                  onSubmit={handleSearchByImage}
+                >
+                  <input
+                    type="file"
+                    name="image"
+                    className="file-input file-input-primary file-input-bordered join-item w-full"
+                    accept="image/*"
+                    onChange={(e) => {
+                      setImageFile(e.target.files[0]);
+                      setSearchActive(true);
+                    }}
+                  />
+                  <button className="btn btn-primary join-item">Search</button>
+                </form>
+              </label>
+              {/* Preview Image */}
+              {imageFile && (
+                <div className="flex justify-center items-center gap-4 mt-4">
+                  <img
+                    src={URL.createObjectURL(imageFile)}
+                    alt="Preview"
+                    className="rounded-lg"
+                    style={{ maxWidth: "300px" }}
+                  />
+                </div>
+              )}
+            </>
           )}
         </div>
         {searchActive ? (
           error ? (
             <>
-              {error.code === 404 && paginationHeader}
+              {error.code === 404 && searchBy === "text" && paginationHeader}
               <div className="text-center">
                 <h2 className="text-2xl font-semibold text-red-500 mb-4">
                   {error.code} Error
                 </h2>
                 <p className="text-gray-600">{error.message}</p>
               </div>
-              {error.code === 404 && paginationFooter}
+              {error.code === 404 && searchBy === "text" && paginationFooter}
             </>
           ) : (
             <>
-              {paginationHeader}
+              {searchBy === "text" && paginationHeader}
               {loading ? (
                 <div className="text-center">
                   <span className="loading loading-dots loading-lg text-primary"></span>
                 </div>
-              ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-items-center">
+              ) : // Handle the conditional rendering searchBy
+              searchBy === "text" ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {data.map((product) => (
                     <ProductCard key={product._id} data={product} />
                   ))}
                 </div>
+              ) : (
+                <div className="flex flex-col items-center gap-4 sm:gap-12">
+                  {data.map((product) => (
+                    // Show the name, images of the product
+                    <div
+                      key={product.id}
+                      className="flex flex-col items-center justify-center gap-4"
+                    >
+                      <h2 className="text-2xl font-semibold">{product.name}</h2>
+                      <div className="flex flex-wrap gap-4 justify-center items-center">
+                        {product.similar.images.slice(0, 6).map((image) => (
+                          <img
+                            key={image}
+                            src={`${product.similar.base_url}${image}`}
+                            alt={product.name}
+                            className="rounded-lg"
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               )}
-              {paginationFooter}
+              {searchBy === "text" && paginationFooter}
             </>
           )
         ) : searchBy === "text" ? (
@@ -172,7 +261,11 @@ const Search = () => {
             </span>
           </div>
         ) : (
-          <></>
+          <div className="text-center">
+            <span className="text-lg text-base-content">
+              Please upload an image to begin
+            </span>
+          </div>
         )}
       </Container>
     </>
